@@ -1,6 +1,11 @@
 import type { NextPage } from 'next'
+import Link from "next/link"
+import Image from 'next/image'
+import bgImage from "../public/images/bgimagehalfsat.png"
 import Head from 'next/head'
 import Navbar from '../components/Header/Navbar/Navbar'
+
+import mainStyles from "../styles/main.module.css"
 
 const Home: NextPage = () => {
   return (
@@ -11,8 +16,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <header>
         <Navbar />
+      </header>
+
+      <main className={mainStyles.fullImage}>
+        <h1 className={mainStyles.mainText}>Wanna yumcha but no one’s free? Yumcha with new people lah!</h1>
+        <div className={mainStyles.mainBtnDiv}>
+          <Link href="/yumchaNow">
+            <a>Yumcha Now</a>
+          </Link>
+          <Link href="/planYumcha">
+            <a>Plan Yumcha</a>
+          </Link>
+          <Link href="/virtualYumcha">
+            <a>Virtual Yumcha</a>
+          </Link>
+        </div>
       </main>
 
       <footer>

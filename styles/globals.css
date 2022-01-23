@@ -12,6 +12,9 @@
   --purple-grad: linear-gradient(180deg, #C8FE9A 0%, #CB949E 53.12%, #D005A3 100%);
   --playfulFont: "Shadows Into Light";
   --textFont: "Outfit";
+  --shadow-md: box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow: box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --textShadow: 0px 3px 4px rgb(0 0 0 / 27%);
 }
 
 html,
