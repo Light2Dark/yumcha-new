@@ -1,0 +1,10 @@
+.container {
+    padding: 0.1em 3em;
+    background-color: var(--darkBlue);
+}
+
+.heading {
+    font-family: var(--playfulFont);
+    font-weight: normal;
+    color: var(--lightGreen);
+}
