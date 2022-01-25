@@ -3,6 +3,7 @@ import Head from "next/head"
 import Navbar from "../components/Header/Navbar/Navbar"
 import MainNav from "../components/Header/MainNav/MainNav"
 import YumchaCard from "../components/Main/YumchaCard/yumchaCard"
+import mainStyles from "../styles/main.module.css"
 
 const Page: NextPage = () => {
     return(
@@ -21,13 +22,11 @@ const Page: NextPage = () => {
                 {/* <div id ="map">
                      
                 </div> */}
-                <div>
+                <div className={mainStyles.card}>
                     <h3>Current Yumchas:</h3>
                     <YumchaCard />
                     <YumchaCard />
-                </div>
 
-                <div>
                     <h3>Upcoming Yumchas:</h3>
                     <YumchaCard />
                 </div>

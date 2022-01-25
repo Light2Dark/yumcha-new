@@ -1,14 +1,14 @@
 .f2fyumcha {
     background-color: var(--darkBlue);
     border-radius: var(--border-radius);
-    width: 85%;
-    padding: 1px 0px 1px 15px;
+    width: 90%;
+    padding: 2px 0px 2px 15px;
     color: white;
-    margin-top: 3px;
+    margin-top: 4px;
+    box-shadow: var(--shadow);
 }
 
 .f2fimg {
-    height: 45px;
     margin-right: 14px;
 }
 
@@ -23,11 +23,17 @@
     margin-right: 20px;
 }   
 
+.title {
+    color: var(--lightGreen);
+    font-weight: bold;
+}
+
 .time {
     color: var(--lightGreen);
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin-left: 10px;
     margin-right: 0 !important;
+    font-weight: normal;
 }
 
 .expandBtn {
@@ -57,10 +63,11 @@
     flex-direction: row;
     align-items: center;
     padding-bottom: 6px;
+    margin-top: 8px;
 }
 
 .expanded span:nth-child(2) {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 .expanded span:nth-child(3) a {
@@ -69,4 +76,13 @@
     font-size: 1em;
     padding: 0px 8px 0px 6px;
     font-weight: bold;
+}
+
+.text {
+    margin-left: 0.8em;
+}
+
+.join {
+    margin-left: auto;
+    margin-right: 5px;
 }
