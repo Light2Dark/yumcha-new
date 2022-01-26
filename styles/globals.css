@@ -8,7 +8,7 @@
   --setMargin: 28px;
   --translucentgray: rgba(15, 1, 69, 0.17);
   --border-radius: 15px;
-  --placeholderGreen: #c9fe9ac5;
+  --placeholderGreen: #d4d4d4c5;
   --purple-grad: linear-gradient(180deg, #C8FE9A 0%, #CB949E 53.12%, #D005A3 100%);
   --playfulFont: "Shadows Into Light";
   --textFont: "Outfit";
@@ -37,4 +37,45 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: "Outfit", "Shadows Into Light", cursive, sans-serif;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--placeholderGreen);
+  opacity: 1; /* Firefox */
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--placeholderGreen);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--placeholderGreen);
+}
+
+label {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--darkBlue);
+  margin-bottom: 3px;
+}
+
+select, input, #description {
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 14px;
+  color: var(--lightGreen);
+  background-color: var(--darkBlue);
+  border-radius: var(--border-radius);
+  border: none;
+  padding: 5px 15px 5px 10px;
+  width: auto;
+}
+
+input {
+  height: 2.3em;
 }

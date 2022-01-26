@@ -3,6 +3,7 @@ import Head from "next/head"
 import Navbar from "../components/Header/Navbar/Navbar"
 import MainNav from "../components/Header/MainNav/MainNav"
 import mainStyles from "../styles/main.module.css"
+import YumchaForm from "../components/Main/YumchaForm/yumchaForm"
 
 const Page: NextPage = () => {
     return(
@@ -22,7 +23,7 @@ const Page: NextPage = () => {
                      
                 </div> */}
                 <div>
-                    
+                    <YumchaForm />
                 </div>
                 
 

@@ -13,14 +13,14 @@ const MainNav = ({currentPage}: Props) => {
     return(
         <>
             <div className={styles.topTitle}>
-                <span><a className = "back-btn">&#60;</a></span>
+                {/* <span><a className = "back-btn">&#60;</a></span> */}
                 <h2>{currentPage}</h2>
-                <div className = {`${styles.checkboxContainer} ${styles.blue}`}>
+                {/* <div className = {`${styles.checkboxContainer} ${styles.blue}`}>
                     <span>Virtual</span>
                     <input type="checkbox" id="toggle" />
                     <label htmlFor="toggle" onClick={switchToVirtualYumchas}></label>
                     <span className={styles.activeCirlce}></span>
-                </div>
+                </div> */}
             </div>            
         </>
     )
