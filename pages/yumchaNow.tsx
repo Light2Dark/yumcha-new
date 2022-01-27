@@ -5,7 +5,12 @@ import MainNav from "../components/Header/MainNav/MainNav"
 import YumchaCard from "../components/Main/YumchaCard/yumchaCard"
 import mainStyles from "../styles/main.module.css"
 
+import { useState } from "react"
+
 const Page: NextPage = () => {
+
+    const [yumchas, setYumchas] = useState<typeof YumchaCard[]>([])
+
     return(
         <>
             <Head>
