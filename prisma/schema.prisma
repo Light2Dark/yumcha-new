@@ -1,22 +1,32 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("SETUP_DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("SETUP_DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Yumcha {
-  id        Int @default(autoincrement()) @id
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String   @db.VarChar(255)
-  message   String  @db.MediumText
+  username  String   @db.VarChar(255)
+  phoneNum  String   @db.Text
+  date      DateTime @db.Date @default(now())
+  time      DateTime @db.Time()
+  place     String   @db.Text
+  seat      String   @db.Text
+  yumchaName    String   @db.Text
+  description   String   @db.MediumText
+  sameGender    Boolean  
+}
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+  age  Int
 }
