@@ -6,6 +6,7 @@ export default async function assetHandler(req: any, res: any) {
     switch (method) {
         case "GET":
             try {   
+                console.log("getting!!")
                 const allYumchas = await prisma.yumcha.findMany();
                 res.status(200).json(allYumchas);
             } catch(e) {

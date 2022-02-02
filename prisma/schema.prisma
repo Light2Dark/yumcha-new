@@ -14,19 +14,19 @@ model Yumcha {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  username  String   @db.VarChar(255)
-  phoneNum  String   @db.Text
-  date      DateTime @db.Date @default(now())
-  time      DateTime @db.Time()
-  place     String   @db.Text
-  seat      String   @db.Text
-  yumchaName    String   @db.Text
-  description   String   @db.MediumText
-  sameGender    Boolean  
+  username  String   
+  phoneNum  String   
+  date      DateTime @db.Date
+  // time      DateTime @db.Time
+  place     String   
+  seat      String   
+  // yumchaName    String   
+  // description   String   
+  // sameGender    Boolean  
 }
 
-model User {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-  age  Int
-}
+// model User {
+//   id   Int    @id @default(autoincrement())
+//   name String @db.VarChar(255)
+//   age  Int
+// }
