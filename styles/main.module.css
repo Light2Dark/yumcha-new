@@ -45,4 +45,11 @@
     height:30px;
     width: 100px;
     color: black;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
 }

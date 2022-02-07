@@ -9,28 +9,13 @@ import mainStyles from "../styles/main.module.css"
 import { useEffect, useState } from "react"
 import { supabase } from "../utils/supabaseClient"
 
-type Props = {
-    session: any;
-}
-
-// const Yumcha = ({session}: Props) => {
-    
-
-//     return (
-//         <>
-
-//         </>
-//     )
-// }
-
-const Page = ({session}: Props) => {
-    // const [yumchas, setYumchas] = useState<typeof YumchaCard[]>([])
+const Page = () => {
     const [loading, setLoading] = useState(false)
     const [yumchas, setYumchas] = useState<Array<typeof YumchaCard>>([])
 
     useEffect(() => {
         GetYumchas()
-    }, [session])
+    }, [])
     
 
     async function GetYumchas() {
@@ -63,38 +48,6 @@ const Page = ({session}: Props) => {
         }
     }
 
-    async function AddYumcha() {
-        try {
-            setLoading(true)
-            let {data: yumcha, error, status} = await supabase
-                .from("yumcha")
-                .insert([
-                    {username: "Shahmirasd"}
-                ])
-
-            
-            // let { data: yumcha, error } = await supabase
-            //     .from('yumcha')
-            //     .select('*')
-                      
-            
-            if (error && status !== 406) {
-                console.log("error not 406")
-                throw error
-            }
-
-            if (yumcha) {
-                console.log("yumcha", yumcha)
-            }
-
-        } catch(error) {
-            console.error(error)
-
-        } finally {
-            setLoading(false)
-        }
-    }
-
 
     return(
         <>
@@ -113,17 +66,20 @@ const Page = ({session}: Props) => {
                      
                 </div> */}
                 <div className={mainStyles.card}>
-                    <h3>Current Yumchas:</h3>
-                    {yumchas.map(({description, phoneNum, place, time, username, yumchaTitle, id}: YumchaProps) => {
+                    <div className={mainStyles.flex}>
+                        <h3>Yumchas:</h3> 
+                        <button className={mainStyles.button} onClick={() => {GetYumchas()}}>Refresh</button>
+                    </div>
+
+                    {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: YumchaProps) => {
                         return(
-                            <YumchaCard description={description} phoneNum={phoneNum} place={place} time={time} username={username} yumchaTitle={yumchaTitle} key={id} />
+                            <YumchaCard description={description} phoneNum={phoneNum} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} />
                         )
                     })}
 
-                    <h3>Upcoming Yumchas:</h3>
+                    {/* <h3>Upcoming Yumchas:</h3> */}
                     {/* <YumchaCard /> */}
                 </div>
-                <button className={mainStyles.button} onClick={() => {}}>Get Yumcha</button>
 
             </main>
         </>
