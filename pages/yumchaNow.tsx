@@ -71,7 +71,13 @@ const Page = () => {
                         <button className={mainStyles.button} onClick={() => {GetYumchas()}}>Refresh</button>
                     </div>
 
-                    {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: YumchaProps) => {
+                    {/* {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: YumchaProps) => {
+                        return(
+                            <YumchaCard description={description} phoneNum={phoneNum} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} />
+                        )
+                    })} */}
+
+                    {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: any) => {
                         return(
                             <YumchaCard description={description} phoneNum={phoneNum} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} />
                         )
