@@ -23,8 +23,9 @@ const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, sea
       .toLocaleTimeString('en-US',
         {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
       );
-
-    const whatsapp = `https://wa.me/${phoneNum}`
+    
+    let num = "6" + phoneNum
+    const whatsapp = `https://wa.me/${num}`
 
     return(
         <>
