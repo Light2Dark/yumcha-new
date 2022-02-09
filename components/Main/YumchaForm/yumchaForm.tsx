@@ -81,12 +81,12 @@ const Form = () => {
 
             <div>
                 <label htmlFor="seatLocation" className = {styles.block}>Seat:</label>
-                <input type="text" className = {styles.placeInput} name = "seatLocation" required id = "seatLocation" placeholder="Upstairs, 2nd table" autoComplete="off" autoCapitalize="on" />
+                <input type="text" className = {styles.medium} name = "seatLocation" required id = "seatLocation" placeholder="Upstairs, 2nd table" autoComplete="off" autoCapitalize="on" />
             </div>
 
             <div>
                 <label htmlFor="yumchaName" className = {styles.block}>Yumcha Name:</label>
-                <input type="text" name="yumchaName" id="yumchaName" required placeholder="Lunch + talk" className = "placeInput" max="15" />
+                <input type="text" name="yumchaName" id="yumchaName" required placeholder="Lunch + talk" className = {styles.medium} max="15" />
             </div>
 
             <div>
@@ -94,10 +94,10 @@ const Form = () => {
                 <textarea name="description" id="description" rows={2} placeholder="We can talk about anime and food!" autoComplete="on" style = {{width: "80%"}}></textarea>
             </div>
 
-            <div style = {{marginTop: "10px"}} className={styles.select}>
+            {/* <div style = {{marginTop: "10px"}} className={styles.select}>
                 <input type="checkbox" name="sameGender" id="sameGender" value = "1" />
                 <label htmlFor="sameGender" className = {styles.smaller}>Only yumcha with same gender</label>
-            </div>
+            </div> */}
 
             <div className={styles.select}>
                 <input type="checkbox" name="whatsapp" id="whatsapp" value = "1" required />

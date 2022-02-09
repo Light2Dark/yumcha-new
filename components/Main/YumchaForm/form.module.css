@@ -6,20 +6,20 @@
 }
 
 .largerInput {
-    width: 110px;
+    width: 120px;
 }
 
 .smallerInput {
     width: 102px;
 }
 
-.placeInput {
+.medium {
     width: 70%;
     -webkit-user-select: all;
     user-select: all;
 }
 
-.placeInput:focus {
+.medium:focus {
     outline: none;
     animation: select 100ms step-end forwards;
 }
@@ -61,7 +61,7 @@
     border: none;
     color: var(--lightGreen);
     background-color: var(--darkBlue);
-    padding: 7px 16px;
+    padding: 10px 16px;
     width: 58%;
 }
 
@@ -76,6 +76,10 @@
 
 .block {
     display: block;
+}
+
+.block textarea {
+    width: 80%;
 }
 
 .locationSelector img {
@@ -96,4 +100,30 @@
 
 .select input {
     height: unset !important;
+}
+
+@media screen and (min-width: 768px) {
+    .smallerInput {
+        width: 150px;
+    }
+
+    .largerInput {
+        width: 200px;
+    }
+
+    .location {
+        width: 350px;
+    }
+
+    .medium {
+        width: 250px;
+    }
+
+    .block textarea {
+        width: 500px;
+    }
+
+    .submitBtn button {
+        width: 200px;
+    }
 }

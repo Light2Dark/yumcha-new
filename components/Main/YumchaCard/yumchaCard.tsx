@@ -43,7 +43,8 @@ const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, sea
                         <span className={styles.place}>{tempPlace}, {seat}</span>
                     </div>
 
-                    <span className={styles.join}><a href={whatsapp}>Join</a></span>
+                    {/* <span className={styles.join}><a href={whatsapp}>Join</a></span> */}
+                    <span className={styles.join}><a href={whatsapp}>Chat</a></span>
                 </div>
             </div>
         </>
