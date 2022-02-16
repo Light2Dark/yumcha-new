@@ -2,32 +2,33 @@ import type {NextPage} from "next"
 import Head from "next/head"
 import Navbar from "../components/Header/Navbar/Navbar"
 import MainNav from "../components/Header/MainNav/MainNav"
-import YumchaCard from "../components/Main/YumchaCard/yumchaCard"
-import { YumchaProps } from "../components/Main/YumchaCard/yumchaCard"
 import mainStyles from "../styles/main.module.css"
+
+import VirtualYumchaCard from "../components/Main/YumchaCard/virtualYumchaCard"
+import VirtualYumchaProps from "../components/Main/YumchaCard/virtualYumchaCard"
 
 import { useEffect, useState } from "react"
 import { supabase } from "../utils/supabaseClient"
 
-const Page = () => {
+const Page: NextPage = () => {
     const [loading, setLoading] = useState(false)
-    const [yumchas, setYumchas] = useState<Array<typeof YumchaCard>>([])
+    const [virtualYumchas, setVirtualYumchas] = useState<Array<typeof VirtualYumchaCard>>([])
 
     useEffect(() => {
-        GetYumchas()
-
-        return () => {
-            // this function will be called after the above functions finish
-            // can do cleanup here
-        }
+      GetVirtualYumchas()
+    
+      return () => {
+        // this function will be called after the above functions finish
+        // can do cleanup here
+      }
     }, [])
     
 
-    async function GetYumchas() {
+    async function GetVirtualYumchas() {
         try {
             setLoading(true)
             let {data, error, status} = await supabase
-                .from("yumcha")
+                .from("virtualYumcha")
                 .select()
             
             if (error && status !== 406) {
@@ -36,8 +37,8 @@ const Page = () => {
             }
 
             if (data) {
-                setYumchas(data)
-                console.log(yumchas)
+                setVirtualYumchas(data)
+                console.log(virtualYumchas)
             }
 
         } catch(error) {
@@ -48,11 +49,10 @@ const Page = () => {
         }
     }
 
-
     return(
         <>
             <Head>
-                <title>Yumcha Now</title>
+                <title>Yumcha</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
@@ -61,25 +61,19 @@ const Page = () => {
             </header>
 
             <main>
-                <MainNav currentPage="Physical Yumchas" />
+                <MainNav currentPage="Virtual Yumchas" />
                 {/* <div id ="map">
                      
                 </div> */}
                 <div className={mainStyles.card}>
                     <div className={mainStyles.flex}>
                         <h3>Yumchas:</h3> 
-                        <button className={mainStyles.button} onClick={() => {GetYumchas()}}>Refresh</button>
+                        <button className={mainStyles.button} onClick={() => {GetVirtualYumchas()}}>Refresh</button>
                     </div>
 
-                    {/* {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: YumchaProps) => {
+                    {virtualYumchas.map(({description, time, username, yumchaName, id, date, onlineLink }: any) => {
                         return(
-                            <YumchaCard description={description} phoneNum={phoneNum} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} />
-                        )
-                    })} */}
-
-                    {yumchas.map(({description, phoneNum, tempPlace, time, username, yumchaName, id, date, seat}: any) => {
-                        return(
-                            <YumchaCard description={description} phoneNum={phoneNum} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} />
+                            <VirtualYumchaCard description={description} time={time} username={username} yumchaName={yumchaName} key={id} date={date} onlineLink={onlineLink} />
                         )
                     })}
 

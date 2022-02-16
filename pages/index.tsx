@@ -29,9 +29,9 @@ const Home: NextPage = () => {
           <Link href="/planYumcha">
             <a>Plan Yumcha</a>
           </Link>
-          {/* <Link href="/virtualYumcha">
+          <Link href="/virtualYumcha">
             <a>Virtual Yumcha</a>
-          </Link> */}
+          </Link>
         </div>
       </main>
 
