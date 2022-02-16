@@ -2,12 +2,9 @@ import type {NextPage} from "next"
 import Head from "next/head"
 import Navbar from "../components/Header/Navbar/Navbar"
 import ToggleNav from "../components/Header/MainNav/ToggleNav"
-import mainStyles from "../styles/main.module.css"
-import YumchaForm from "../components/Main/YumchaForm/yumchaForm"
-import Map from "../components/Main/Map/map"
+import VirtualYumchaForm from "../components/Main/YumchaForm/virtualForm"
 
-
-const Page: NextPage = () => {
+const PlanVirtual: NextPage = () => {
     return(
         <>
             <Head>
@@ -20,11 +17,10 @@ const Page: NextPage = () => {
             </header>
 
             <main>
-                <ToggleNav currentPage="Plan Yumcha" initialTitle="F2F" switchedTitle="Virtual" link="./planVirtual" />
-                <Map />
+                <ToggleNav currentPage="Plan Yumcha" initialTitle="Virtual" switchedTitle="F2F" link="./planYumcha" />
 
                 <div>
-                    <YumchaForm />
+                    <VirtualYumchaForm />
                 </div>
                 
 
@@ -33,4 +29,4 @@ const Page: NextPage = () => {
     )
 }
 
-export default Page
+export default PlanVirtual

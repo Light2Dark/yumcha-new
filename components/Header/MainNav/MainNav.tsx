@@ -6,10 +6,6 @@ interface Props {
 
 const MainNav = ({currentPage}: Props) => {
 
-    const switchToVirtualYumchas = () => {
-        console.log("switch");
-    }
-
     return(
         <>
             <div className={styles.topTitle}>
