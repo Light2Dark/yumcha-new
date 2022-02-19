@@ -27,10 +27,12 @@ const Toggle = ({initialTitle, switchedTitle, link}: Props) => {
     return(
         <>
             <div className = {`${styles.checkboxContainer} ${styles.green}`}>
-                <p className = {styles.title}>{title}</p>
-                <input type="checkbox" id="toggle" />
+                {/* <p className = {styles.title}>Switch to {title}</p> */}
+                {/* <input type="checkbox" id="toggle" />
                 <label onClick = {switchToggle} htmlFor="toggle"></label>
-                <span className ={styles.activeCircle}></span>
+                <span className ={styles.activeCircle}></span> */}
+
+                <button className={styles.button} onClick={switchToggle}>Switch to {title}</button>
             </div>
         </>
     )

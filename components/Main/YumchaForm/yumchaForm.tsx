@@ -79,10 +79,10 @@ const Form = () => {
                 {/* <Image src={locationPic} alt="Choose location on map"></Image> */}
             </div>
 
-            {/* <div>
+            <div>
                 <label htmlFor="seatLocation" className = {styles.block}>Seat:</label>
                 <input type="text" className = {styles.medium} name = "seatLocation" required id = "seatLocation" placeholder="Upstairs, 2nd table" autoComplete="off" autoCapitalize="on" />
-            </div> */}
+            </div>
 
             <div>
                 <label htmlFor="yumchaName" className = {styles.block}>Yumcha Name:</label>

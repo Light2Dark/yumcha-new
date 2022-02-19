@@ -61,4 +61,13 @@
 	display: inline;
 	vertical-align: top;
 	margin-right: 5px;
+	font-size: 1.1rem;
+}
+
+.button {
+	border: none;
+	border-radius: 10px;
+	font-size: 1.1rem;
+	background-color: var(--darkBlue);
+	color: var(--lightGreen);
 }

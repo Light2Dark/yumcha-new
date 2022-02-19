@@ -17,7 +17,7 @@ const PlanVirtual: NextPage = () => {
             </header>
 
             <main>
-                <ToggleNav currentPage="Plan Yumcha" initialTitle="Virtual" switchedTitle="F2F" link="./planYumcha" />
+                <ToggleNav currentPage="Plan Yumcha" initialTitle="F2F" switchedTitle="Virtual" link="./planYumcha" />
 
                 <div>
                     <VirtualYumchaForm />

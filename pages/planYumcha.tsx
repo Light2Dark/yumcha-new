@@ -20,7 +20,7 @@ const Page: NextPage = () => {
             </header>
 
             <main>
-                <ToggleNav currentPage="Plan Yumcha" initialTitle="F2F" switchedTitle="Virtual" link="./planVirtual" />
+                <ToggleNav currentPage="Plan Yumcha" initialTitle="Virtual" switchedTitle="F2F" link="./planVirtual" />
                 <Map />
 
                 <div>
