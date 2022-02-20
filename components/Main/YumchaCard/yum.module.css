@@ -1,8 +1,14 @@
+.twoCards {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
 .f2fyumcha {
     background-color: var(--darkBlue);
     border-radius: var(--border-radius);
-    width: 90%;
-    padding: 2px 0px 2px 15px;
+    border-bottom-right-radius: 2px;
+    padding: 4px 0px 2px 15px;
     color: white;
     margin-top: 4px;
     box-shadow: var(--shadow);
@@ -95,9 +101,39 @@
     color: rgb(203, 208, 209);
 }
 
+.bottomContainer {
+    align-self: flex-end;
+}
+
+.bottomCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: var(--lightGrey);
+    position: relative;
+    top: -15px;
+    padding: 18px 10px 4px 20px;
+    z-index: -99;
+
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.joiners {
+    margin-right: 8px;
+    display: flex;
+}
+
+.joiners span {
+    margin-left: -10px !important;
+}
 
 @media screen and (min-width: 768px) {
-    .f2fyumcha {
-        width: 40%;
+    /* .f2fyumcha, .bottomContainer {
+        width: 60%;
     }
+
+    .bottomContainer {
+        align-self: auto;
+    } */
 }

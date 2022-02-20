@@ -1,6 +1,7 @@
 import styles from "./yum.module.css"
 import Image from "next/image"
 import face from "../../../public/images/profileface.png"
+import userIcon from "../../../public/images/usercircle.svg"
 
 export interface YumchaProps {
     id?: number;
@@ -29,22 +30,37 @@ const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, sea
 
     return(
         <>
-            <div className={styles.f2fyumcha}>
-                <div className={styles.visible}>
-                    <span><b>{username}</b></span>
-                    <span className={styles.title}>{yumchaName}<span className = {styles.time}>{timeString12hr}</span></span>
-                    {/* <div className = {styles.expandBtn} onClick = {() => console.log("expandF2FYumcha(this)")}><b>&#62;</b></div> */}
-                </div>
-                <div className={styles.expanded}>
-                    <Image src={face} alt="Face of person" className={styles.f2fimg} height={"45px"} width={"45px"}  />
-
-                    <div className={styles.midText}>
-                        <span>{description}</span>
-                        <span className={styles.place}>{tempPlace}, {seat}</span>
+            <div className={styles.twoCards}>
+                <div className={styles.f2fyumcha}>
+                    <div className={styles.visible}>
+                        <span><b>{username}</b></span>
+                        <span className={styles.title}>{yumchaName}<span className = {styles.time}>{timeString12hr}</span></span>
+                        {/* <div className = {styles.expandBtn} onClick = {() => console.log("expandF2FYumcha(this)")}><b>&#62;</b></div> */}
                     </div>
+                    <div className={styles.expanded}>
+                        <Image src={userIcon} alt="Icon of a person" className={styles.f2fimg} height={"50px"} width={"50px"} />
 
-                    {/* <span className={styles.join}><a href={whatsapp}>Join</a></span> */}
-                    <span className={styles.join}><a href={whatsapp}>Chat</a></span>
+                        <div className={styles.midText}>
+                            <span>{description}</span>
+                            <span className={styles.place}>{tempPlace}, {seat}</span>
+                        </div>
+
+                        {/* <span className={styles.join}><a href={whatsapp}>Join</a></span> */}
+                        <span className={styles.join}><a href={whatsapp}>Chat</a></span>
+                    </div>
+                </div>
+
+                <div className={styles.bottomContainer}>
+                    <div className={styles.bottomCard}>
+                        <div className={styles.joiners}>
+                            <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
+                            <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
+                            <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
+                        </div>
+                        <div>
+                            <span>3 people joining!</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
