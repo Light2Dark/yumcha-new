@@ -87,6 +87,11 @@
 .join {
     margin-left: auto;
     margin-right: 5px;
+    text-decoration: none;
+    color: var(--lightGreen);
+    font-size: 1em;
+    padding: 0px 8px 0px 6px;
+    font-weight: bold;
 }
 
 .midText {

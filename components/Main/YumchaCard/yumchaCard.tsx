@@ -1,13 +1,13 @@
 import styles from "./yum.module.css"
 import Image from "next/image"
-import face from "../../../public/images/profileface.png"
 import userIcon from "../../../public/images/usercircle.svg"
+import { supabase } from "../../../utils/supabaseClient"
 
 export interface YumchaProps {
     id?: number;
     inserted_at?: String;
     username: String;
-    phoneNum: String;
+    // phoneNum: String;
     date: String;
     time: String;
     tempPlace: String;
@@ -15,18 +15,19 @@ export interface YumchaProps {
     yumchaName: String;
     description: String;
     sameGender?: Boolean;
+    numPeopleJoin?: number;
 }
 
-const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, seat} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin} : YumchaProps) => {
 
     const timeString = time
     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
       .toLocaleTimeString('en-US',
         {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
       );
-    
-    let num = "6" + phoneNum
-    const whatsapp = `https://wa.me/${num}`
+      
+    // let num = "6" + phoneNum
+    // const whatsapp = `https://wa.me/${num}`
 
     return(
         <>
@@ -45,8 +46,8 @@ const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, sea
                             <span className={styles.place}>{tempPlace}, {seat}</span>
                         </div>
 
-                        {/* <span className={styles.join}><a href={whatsapp}>Join</a></span> */}
-                        <span className={styles.join}><a href={whatsapp}>Chat</a></span>
+                        <span className={styles.join}>Join</span>
+                        {/* <span className={styles.join}><a href={whatsapp}>Chat</a></span> */}
                     </div>
                 </div>
 
@@ -58,13 +59,18 @@ const Card = ({username, yumchaName, time, description, phoneNum, tempPlace, sea
                             <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
                         </div>
                         <div>
-                            <span>3 people joining!</span>
+                            <span>{numPeopleJoin} people joining!</span>
                         </div>
                     </div>
                 </div>
             </div>
         </>
     )
+}
+
+const ConfirmYumcha = () => {
+ // prompt the user to confirm whether they want to yumcha
+ // if yes, then update database
 }
 
 export default Card

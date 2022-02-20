@@ -71,9 +71,9 @@ const Page: NextPage = () => {
                         <button className={mainStyles.button} onClick={() => {GetVirtualYumchas()}}>Refresh</button>
                     </div>
 
-                    {virtualYumchas.map(({description, time, username, yumchaName, id, date, onlineLink }: any) => {
+                    {virtualYumchas.map(({description, time, username, yumchaName, id, date, onlineLink, numPeopleJoin }: any) => {
                         return(
-                            <VirtualYumchaCard description={description} time={time} username={username} yumchaName={yumchaName} key={id} date={date} onlineLink={onlineLink} />
+                            <VirtualYumchaCard description={description} time={time} username={username} yumchaName={yumchaName} key={id} date={date} onlineLink={onlineLink} numPeopleJoin={numPeopleJoin} />
                         )
                     })}
 

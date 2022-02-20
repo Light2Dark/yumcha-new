@@ -13,7 +13,7 @@ const Form = () => {
         
         const Yumcha: YumchaProps = {
             username: event.target.name.value,
-            phoneNum: event.target.phoneNum.value,
+            // phoneNum: event.target.phoneNum.value,
             description: event.target.description.value,
             time: event.target.time.value,
             date: event.target.date.value,
@@ -55,10 +55,10 @@ const Form = () => {
                     <input type="text" name="name" id="name" required placeholder="Jenna" className = {styles.largerInput} />
                 </div>
     
-                <div>
+                {/* <div>
                     <label htmlFor="phoneNum" className = {styles.block}>Phone Number:</label>
                     <input type="tel" name="phoneNum" id="phoneNum" required placeholder="012706869" className = {styles.smallerInput} />
-                </div>
+                </div> */}
             </div>
 
             <div className = {styles.datetime}>
@@ -99,10 +99,10 @@ const Form = () => {
                 <label htmlFor="sameGender" className = {styles.smaller}>Only yumcha with same gender</label>
             </div> */}
 
-            <div className={styles.select}>
+            {/* <div className={styles.select}>
                 <input type="checkbox" name="whatsapp" id="whatsapp" value = "1" required />
                 <label htmlFor="whatsapp" className = {styles.smaller}>Users can WhatsApp you</label>
-            </div>
+            </div> */}
 
             <div className = {styles.submitBtn}>
                 <button id = "submitButton" type="submit">Plan Yumcha</button>
