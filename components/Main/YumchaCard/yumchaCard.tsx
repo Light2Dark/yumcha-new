@@ -2,6 +2,7 @@ import styles from "./yum.module.css"
 import Image from "next/image"
 import userIcon from "../../../public/images/usercircle.svg"
 import { supabase } from "../../../utils/supabaseClient"
+import { useEffect, useState } from "react"
 
 export interface YumchaProps {
     id?: number;
@@ -18,7 +19,56 @@ export interface YumchaProps {
     numPeopleJoin?: number;
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin} : YumchaProps) => {
+
+
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, id} : YumchaProps) => {
+
+    const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
+    const [loading, setLoading] = useState(false)
+    const [updatingDB, setUpdatingDB] = useState(false)
+
+    function ConfirmYumcha() {
+        if (confirm("Join this yumcha?")) {
+            setNumPeopleYumcha(numPeopleYumcha + 1)
+            setUpdatingDB(true)
+        }
+    }
+
+    async function UpdateDB() {
+        try {
+            setLoading(true)
+            const {data, error} = await supabase
+                .from("yumcha")
+                .update({numPeopleJoin: numPeopleYumcha})
+                .match({id: id})
+            
+            if(data) {
+                alert("Joining! Enjoy your yumcha.")
+            }
+
+            if (error) {
+                throw error
+            }
+        }
+        catch(error) {
+            console.error(error)
+            alert("Error")
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if(updatingDB) {
+            UpdateDB()
+        }
+
+        return () => {
+            setUpdatingDB(false)
+        }
+    }, [numPeopleYumcha])
+    
 
     const timeString = time
     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
@@ -46,7 +96,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <span className={styles.place}>{tempPlace}, {seat}</span>
                         </div>
 
-                        <span className={styles.join}>Join</span>
+                        <button className={styles.join} onClick={ConfirmYumcha}>Join</button>
                         {/* <span className={styles.join}><a href={whatsapp}>Chat</a></span> */}
                     </div>
                 </div>
@@ -59,18 +109,13 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
                         </div>
                         <div>
-                            <span>{numPeopleJoin} people joining!</span>
+                            <span>{numPeopleYumcha} people joining!</span>
                         </div>
                     </div>
                 </div>
             </div>
         </>
     )
-}
-
-const ConfirmYumcha = () => {
- // prompt the user to confirm whether they want to yumcha
- // if yes, then update database
 }
 
 export default Card

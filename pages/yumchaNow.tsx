@@ -79,7 +79,7 @@ const Page = () => {
 
                     {yumchas.map(({description, tempPlace, time, username, yumchaName, id, date, seat, numPeopleJoin}: any) => {
                         return(
-                            <YumchaCard description={description} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} numPeopleJoin={numPeopleJoin} />
+                            <YumchaCard description={description} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} numPeopleJoin={numPeopleJoin} id={id} />
                         )
                     })}
 

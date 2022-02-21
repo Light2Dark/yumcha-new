@@ -40,7 +40,7 @@ const Card = ({username, yumchaName, time, description, onlineLink, numPeopleJoi
                             {/* <span className={styles.place}>Zoom / Google Meet</span> */}
                         </div>
 
-                        <span className={styles.join}><a href={onlineLink}>Join</a></span>
+                        <button className={styles.join}><a href={onlineLink}>Join</a></button>
                     </div>
                 </div>
 

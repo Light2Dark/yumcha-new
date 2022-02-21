@@ -19,7 +19,7 @@ const Form = () => {
             date: event.target.date.value,
             tempPlace: event.target.place.value,
             seat: event.target.seatLocation.value,
-            yumchaName: event.target.yumchaName.value
+            yumchaName: event.target.yumchaName.value,
             // sameGender: event.target.sameGender.value
         }
 

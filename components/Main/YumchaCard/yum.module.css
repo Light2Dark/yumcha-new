@@ -10,7 +10,7 @@
     border-bottom-right-radius: 2px;
     padding: 4px 0px 2px 15px;
     color: white;
-    margin-top: 4px;
+    /* margin-top: 4px; */
     box-shadow: var(--shadow);
 }
 
@@ -92,6 +92,8 @@
     font-size: 1em;
     padding: 0px 8px 0px 6px;
     font-weight: bold;
+    border: none;
+    background-color: var(--darkBlue);
 }
 
 .midText {
