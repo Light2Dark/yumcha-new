@@ -1,5 +1,6 @@
 .fullImage {
-    background-image: url("../public/images/bgimagehalfsat.png");
+    /* background-image: url("../public/images/bgimagehalfsat.png"); */
+    background-image: url("../public/images/bg_3.png");
     background-size: cover;
     overflow: hidden;
     height: 88vh;
@@ -10,7 +11,8 @@
     margin-top: 1.2em;
     padding: 1em 0.8em 0.3em;
     text-align: center;
-    text-shadow: var(--textShadow);
+    /* text-shadow: 2px 2px 0px #000000; */
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     color: white;
 }
 

@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
 import Link from "next/link"
-import Image from 'next/image'
-import bgImage from "../public/images/bgimagehalfsat.png"
 import Head from 'next/head'
 import Navbar from '../components/Header/Navbar/Navbar'
 

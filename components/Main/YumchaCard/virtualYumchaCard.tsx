@@ -29,7 +29,8 @@ const Card = ({username, yumchaName, time, description, onlineLink, numPeopleJoi
                 <div className={styles.f2fyumcha}>
                     <div className={styles.visible}>
                         <span><b>{username}</b></span>
-                        <span className={styles.title}>{yumchaName}<span className = {styles.time}>{timeString12hr}</span></span>
+                        <span className={styles.title}>{yumchaName}</span>
+                        <span className = {styles.time}>{timeString12hr}</span>
                         {/* <div className = {styles.expandBtn} onClick = {() => console.log("expandF2FYumcha(this)")}><b>&#62;</b></div> */}
                     </div>
                     <div className={styles.expanded}>
