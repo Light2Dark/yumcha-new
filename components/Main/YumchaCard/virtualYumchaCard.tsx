@@ -1,6 +1,7 @@
 import styles from "./yum.module.css"
 import Image from "next/image"
 import userIcon from "../../../public/images/usercircle.svg"
+import emailjs from "@emailjs/browser"
 
 export interface VirtualYumchaProps {
     id?: number;
@@ -15,13 +16,32 @@ export interface VirtualYumchaProps {
     numPeopleJoin?: number;
 }
 
-const Card = ({username, yumchaName, time, description, onlineLink, numPeopleJoin} : VirtualYumchaProps) => {
+const Card = ({username, yumchaName, time, description, onlineLink, numPeopleJoin, id} : VirtualYumchaProps) => {
 
     const timeString = time
     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
       .toLocaleTimeString('en-US',
         {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
       );
+
+    const SendEmail = (e: any) => {
+        e.preventDefault()
+
+        const email = prompt("Enter your email to receive the yumcha link!")
+
+        let templateParams = {
+            yumcha: yumchaName,
+            userEmail: email,
+            yumchaLink: onlineLink
+        }
+
+        emailjs.send(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_KEY || "", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "", templateParams, id?.toString())
+            .then((result) => {
+                console.log(result.text)
+            }, (error) => {
+                console.log(error.text)
+            })
+    }
 
     return(
         <>
@@ -41,7 +61,7 @@ const Card = ({username, yumchaName, time, description, onlineLink, numPeopleJoi
                             {/* <span className={styles.place}>Zoom / Google Meet</span> */}
                         </div>
 
-                        <button className={styles.join}><a href={onlineLink}>Join</a></button>
+                        <button className={styles.join} onClick={SendEmail}>Join</button>
                     </div>
                 </div>
 

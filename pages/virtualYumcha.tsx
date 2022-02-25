@@ -3,11 +3,12 @@ import Head from "next/head"
 import Navbar from "../components/Header/Navbar/Navbar"
 import MainNav from "../components/Header/MainNav/MainNav"
 import mainStyles from "../styles/main.module.css"
+import emailjs from "@emailjs/browser"
 
 import VirtualYumchaCard from "../components/Main/YumchaCard/virtualYumchaCard"
 import VirtualYumchaProps from "../components/Main/YumchaCard/virtualYumchaCard"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
 import { supabase } from "../utils/supabaseClient"
 
 const Page: NextPage = () => {
@@ -22,6 +23,10 @@ const Page: NextPage = () => {
         // can do cleanup here
       }
     }, [])
+
+    const SendEmail = () => {
+
+    }
     
 
     async function GetVirtualYumchas() {
@@ -73,7 +78,7 @@ const Page: NextPage = () => {
 
                     {virtualYumchas.map(({description, time, username, yumchaName, id, date, onlineLink, numPeopleJoin }: any) => {
                         return(
-                            <VirtualYumchaCard description={description} time={time} username={username} yumchaName={yumchaName} key={id} date={date} onlineLink={onlineLink} numPeopleJoin={numPeopleJoin} />
+                            <VirtualYumchaCard description={description} time={time} username={username} yumchaName={yumchaName} key={id} date={date} onlineLink={onlineLink} numPeopleJoin={numPeopleJoin} id = {id} />
                         )
                     })}
 
