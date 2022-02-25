@@ -5,7 +5,7 @@ import Navbar from '../components/Header/Navbar/Navbar'
 
 import mainStyles from "../styles/main.module.css"
 
-const Home: NextPage = () => {
+const Home: NextPage = () => {  
   return (
     <>
       <Head>
