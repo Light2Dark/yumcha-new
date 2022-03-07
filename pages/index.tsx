@@ -20,7 +20,20 @@ const Home: NextPage = () => {
 
       <main className={mainStyles.fullImage}>
         <h1 className={mainStyles.mainText}>Wanna yumcha but no one’s free? Yumcha with new people lah!</h1>
+
         <div className={mainStyles.mainBtnDiv}>
+          <Link href="/yumchaNow">
+              <a>Sign In</a>
+          </Link>
+          <Link href="/planYumcha">
+              <a>Sign Up</a>
+          </Link>
+          <Link href="/virtualYumcha">
+              <a>Login with Google</a>
+          </Link>
+        </div>
+
+        {/* <div className={mainStyles.mainBtnDiv}>
           <Link href="/yumchaNow">
             <a>Yumcha Now</a>
           </Link>
@@ -30,7 +43,7 @@ const Home: NextPage = () => {
           <Link href="/virtualYumcha">
             <a>Virtual Yumcha</a>
           </Link>
-        </div>
+        </div> */}
       </main>
 
       <footer>
