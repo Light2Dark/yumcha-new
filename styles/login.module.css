@@ -1,0 +1,48 @@
+.loginButtonsDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    margin-top: 3em;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    gap: 0.5em;
+    background-color: white;
+    padding: 0 0.9em 0 0.3em;
+    border-radius: 15px;
+    height: 48px;
+    font-weight: 600;
+    font-size: 1.2em;
+    color:rgb(61, 61, 61);
+}
+
+#email {
+    padding-left: 15px;
+}
+
+#email { 
+    gap: 1.2em;
+}
+
+#google p {
+    display: inline;
+}
+
+.try {
+    text-decoration: underline;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: rgb(241, 237, 237);
+}
+
+.try:visited {
+    color: rgb(77, 77, 255);
+}
+
+.try:active {
+    color: rgb(77, 77, 255);
+}
