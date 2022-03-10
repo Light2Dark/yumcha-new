@@ -1,0 +1,17 @@
+.profile {
+    font-size: 1.1em;
+}
+
+.topLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5em;
+    align-items: center;
+    padding: 10px 10px 10px 0;
+}
+
+.mapDiv {
+    height: 300px;
+    background-color: rgb(175, 175, 175);
+}
