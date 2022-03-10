@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Link from "next/link"
 import Head from 'next/head'
-import Navbar from '../components/Header/Navbar/Navbar'
 import Image from 'next/image'
 
 import mainStyles from "../styles/main.module.css"
@@ -9,6 +8,7 @@ import loginStyles from "../styles/login.module.css"
 
 import googleLogo from "../public/logos/google/signin-assets/google_signin_buttons/web/vector/btn_google_light_normal_ios.svg"
 import emailLogo from "../public/logos/carbon_email.svg"
+import pencil from "../public/logos/bx_pencil.svg"
 
 const Home: NextPage = () => {  
   return (
@@ -25,10 +25,16 @@ const Home: NextPage = () => {
           <h2 className={mainStyles.mainText}>Have lunch with new people lah!</h2>
 
           <div className={loginStyles.loginButtonsDiv}>
-            <Link href="/">
+            <Link href="/auth/sign-in">
                 <a className={loginStyles.button} id = {loginStyles.email}>
                   <Image src={emailLogo} alt="Email Logo" height={25} width={25} />
                   <p>Log in with Email</p>
+                </a>
+            </Link>
+            <Link href="/auth/sign-up">
+                <a className={loginStyles.button} id = {loginStyles.email}>
+                  <Image src={pencil} alt="Email Logo" height={25} width={25} />
+                  <p>Sign Up with Email</p>
                 </a>
             </Link>
             <Link href="/">
