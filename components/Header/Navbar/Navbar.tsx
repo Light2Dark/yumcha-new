@@ -1,10 +1,20 @@
 import styles from "./nav.module.css"
 import Link from "next/link"
 
-export default function Navbar() {
+type Props = {
+    loggedIn?: boolean;
+}
+
+export default function Navbar({loggedIn}: Props) {
+
+    let link = "/"
+    if (loggedIn) {
+        link = "/home"
+    }
+
     return (
         <div className={styles.container}>
-            <Link href="/" passHref>
+            <Link href={link} passHref>
                 <span className={styles.heading}>Yumcha</span>
             </Link>
         </div>

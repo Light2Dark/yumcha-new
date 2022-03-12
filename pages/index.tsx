@@ -45,7 +45,10 @@ const Home: NextPage = () => {
             </Link>
           </div>
 
-          <p className={loginStyles.try}><a>Try first</a></p>
+          <Link href="/home">
+            <p className={loginStyles.try}><a>Try first</a></p>
+          </Link>
+        
 
         </div>
 
