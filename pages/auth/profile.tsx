@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Head from "next/head";
 import styles from "../../styles/profile.module.css"
+import buttonStyles from "../../components/Shared/button.module.css"
 import Avatar from "../../components/Main/Avatar/Avatar";
+import Navbar from "../../components/Header/Navbar/Navbar";
 
 export enum GenderEnum {
     female = "female",
@@ -12,9 +14,19 @@ export enum GenderEnum {
     other = "other"
 }
 
-export interface ProfileProps {
+interface ProfileProps {
     firstName?: string
+    lastName?: string
     interests?: string[]
+    bio?: string
+    avatarUrl?: string
+    gender?: GenderEnum
+}
+
+export interface FormProps {
+    firstName?: string
+    lastName?: string
+    interests?: string
     bio?: string
     avatarUrl?: string
     gender?: GenderEnum
@@ -23,20 +35,40 @@ export interface ProfileProps {
 export default function Profile({session}: any) {
     const [loading, setLoading] = useState(false)
     const [avatarUrl, setAvatarUrl] = useState("")
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
+    const [interests, setInterests] = useState(null)
+    const [gender, setGender] = useState(null)
+
     const router = useRouter()
-    const { register, setValue, handleSubmit, formState: { errors } } = useForm<ProfileProps>();
+    const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormProps>();
 
     useEffect(() => {
         getProfile()
     }, [session])
     
-    const onSubmit = handleSubmit(data => {
+    const onSubmit = handleSubmit((data: any) => {
+        const interests: string = data.interests || ""
+        const interestsArray = interests.split(",")
+        console.log(interestsArray)
+
         console.log(data)
+
+        const profile: ProfileProps = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            interests: interestsArray,
+            bio: data.bio,
+            avatarUrl: data.avatarUrl,
+            gender: data.gender
+        }
+
+        updateProfile(profile)
     });
 
     const onUpload = (url: string) => {
         setAvatarUrl(url)
-        updateProfile({avatarUrl})
+        // updateProfile({avatarUrl})
     }
 
     function signOut() {
@@ -51,7 +83,7 @@ export default function Profile({session}: any) {
 
             let {data, error, status} = await supabase
                 .from("profiles")
-                .select("firstName, avatarUrl, interests, bio")
+                .select("firstName, lastName, gender, avatarUrl, interests, bio")
                 .eq("id", user?.id)
                 .single()
 
@@ -60,16 +92,20 @@ export default function Profile({session}: any) {
             }
 
             if (data) {
-                
+                setFirstName(data.firstName)
+                setLastName(data.lastName)
+                setInterests(data.interests)
+                setGender(data.gender)
+                setAvatarUrl(data.avatarUrl)
             }
         } catch(error: any) {
-            alert(error.message)
+            alert(error.message || error.description)
         } finally {
             setLoading(false)
         }
     }
 
-    async function updateProfile({ firstName, interests, bio, avatarUrl, gender }: ProfileProps) {
+    async function updateProfile({ firstName, lastName, interests, bio, avatarUrl, gender }: ProfileProps) {
         try {
           setLoading(true)
           const user = supabase.auth.user()
@@ -77,6 +113,7 @@ export default function Profile({session}: any) {
           const updates = {
             id: user?.id,
             firstName,
+            lastName,
             interests,
             bio,
             avatarUrl,
@@ -90,74 +127,101 @@ export default function Profile({session}: any) {
     
           if (error) {
             throw error
+          } else {
+            // Success
+            console.log("Image or profile completed uploading")  
           }
-        } catch (error) {
-          alert(error)
+        } catch (error: any) {
+          alert(error.message || error.description)
         } finally {
           setLoading(false)
         }
       }
 
-    return (
-        <>
-        <Head>
-            <title>Yumcha</title>
-            <meta name="description" content="Place to meet new people over food!" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
+      return(
+          <>
+            <Head>
+                <title>Yumcha</title>
+                <meta name="description" content="Place to meet new people over food!" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-        <div className={styles.formWidget}>
-            <form onSubmit={onSubmit}>
-                <Avatar url={"avatarUrl"} onUpload={onUpload} size={150} />
-                
-                <div>
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" {...register("firstName")} id="firstName" />
-                </div>
-
-                <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" />
-                </div>
-
-                <div>
-                    <label htmlFor="gender">Gender</label>
-                    <select {...register("gender")} defaultValue="male" id="gender">
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label htmlFor="bio">Bio</label>
-                    <textarea {...register("bio")} id="bio" cols={20} rows={3}></textarea>
-                </div>
-
-                <div>
-                    <label htmlFor="interests">Interests</label>
-                    <input type="text" {...register("interests")} id="interests" />
-                </div>
-                
-                <button type="submit" onClick={onSubmit}>Complete Profile</button>
-            </form>
-
-            {/* <div>
-                <button
-                className="button block primary"
-                onClick={() => updateProfile({ firstName, bio, interests }: ProfileProps)}
-                disabled={loading}
-                >
-                {loading ? 'Loading ...' : 'Update'}
-                </button>
-            </div> */}
+            <Navbar loggedIn={true} />
 
             <div>
-                <button className="button block" onClick={signOut}>
-                Sign Out
-                </button>
+                <h1 className={styles.heading}>Your Profile</h1>
             </div>
-        </div>
-        </>
-    )
+
+            <div className={styles.formWidget}>
+                <form onSubmit={onSubmit}>
+                    <Avatar url={"avatarUrl"} onUpload={onUpload} size={150} />
+
+                    <div className={styles.twoLines}>
+                        <label htmlFor="firstName">
+                            First Name:&nbsp;
+                            <span>{firstName}</span>
+                        </label>
+                        <input type="text" {...register("firstName", {required: true})} id="firstName" className={styles.name} placeholder={firstName || ""}/>
+                    </div>
+
+                    <div className={styles.twoLines}>
+                        <label htmlFor="lastName">
+                            Last Name:&nbsp;
+                            <span>{lastName}</span>
+                        </label>
+                        <input type="text" {...register("lastName", {required: true})} id="lastName" className={styles.name} placeholder={lastName || ""} />
+                    </div>
+
+                    <div className={styles.twoLines}>
+                        <label htmlFor="gender">
+                            Gender:&nbsp;
+                            <span>{gender}</span>
+                        </label>
+
+                        <select {...register("gender", {required: true})} id="gender" className={styles.gender} defaultValue={gender || "male"}>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    {/* <div>
+                        <label htmlFor="bio">Bio</label>
+                        <textarea {...register("bio")} id="bio" cols={20} rows={3}></textarea>
+                    </div> */}
+
+                    <div className={styles.twoLines}>
+                        <label htmlFor="interests">
+                            Interests:&nbsp;
+                            <span>{interests}</span>
+                        </label>
+                        <input type="text" {...register("interests", {required: true})} id="interests" className={styles.interest} placeholder={interests || ""} />
+                    </div>
+                    
+                    <div className={styles.center}>
+                        <button className={`${buttonStyles.button} ${styles.completeBtn}`} onClick={() => {router.push("./../home")}}>Back</button>
+                        <button type="submit" onClick={onSubmit} className={`${buttonStyles.button} ${styles.completeBtn}`}>Change Profile</button>
+                    </div>
+                    
+                </form>
+
+                {/* <div>
+                    <button
+                    className="button block primary"
+                    onClick={() => updateProfile({ firstName, bio, interests }: ProfileProps)}
+                    disabled={loading}
+                    >
+                    {loading ? 'Loading ...' : 'Update'}
+                    </button>
+                </div> */}
+
+                {/* <div>
+                    <button className={buttonStyles.button} onClick={signOut}>
+                    Sign Out
+                    </button>
+                </div> */}
+
+            </div>
+          </>
+      )
 }
