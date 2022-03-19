@@ -7,10 +7,14 @@ import Navbar from "../components/Header/Navbar/Navbar"
 import mainStyles from "../../styles/main.module.css"
 import styles from "../styles/home.module.css"
 import { supabase } from "../utils/supabaseClient"
+import { useState } from "react"
+import MyYumchas from "../components/Main/MyYumchas/myYumchas"
 
 const Home = () => {
     const router = useRouter()
     const user = supabase.auth.user()
+
+    const [loading, setLoading] = useState(false)
 
     const profileRedirect = () => {
         if (user === null) {
@@ -51,9 +55,20 @@ const Home = () => {
                     <span>Google Maps API</span>
                 </div>
 
-                <p>My Yumchas</p>
+                <div className={styles.yumchaTitle}>
 
-                <p>Nearby Yumchas</p>
+                    <div className={styles.titleDiv}>
+                        <h4>My Yumchas</h4> 
+                        <button>Refresh (&nbsp;)</button>
+                    </div>
+                    <MyYumchas />
+
+                    <div className={styles.titleDiv}>
+                        <h4>Nearby Yumchas</h4>
+                        <button>Refresh (&nbsp;)</button>
+                    </div>
+                    
+                </div>
             </main>
         </>
     )

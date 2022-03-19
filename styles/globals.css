@@ -79,3 +79,13 @@ select, input, #description {
 input {
   height: 2.3em;
 }
+
+button {
+  background-color: var(--darkBlue);
+  color: var(--lightGreen);
+  border: none;
+}
+
+button:active {
+  border: 1px solid lightgoldenrodyellow;
+}

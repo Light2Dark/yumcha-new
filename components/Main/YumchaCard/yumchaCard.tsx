@@ -8,7 +8,6 @@ export interface YumchaProps {
     id?: number;
     inserted_at?: String;
     username: String;
-    // phoneNum: String;
     date: String;
     time: String;
     tempPlace: String;
