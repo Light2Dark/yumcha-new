@@ -18,8 +18,6 @@ export interface YumchaProps {
     numPeopleJoin?: number;
 }
 
-
-
 const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, id} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
