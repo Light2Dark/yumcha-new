@@ -12,14 +12,22 @@ export interface Yumchas {
     userID: string
 }
 
-const MyYumchas = () => {
+type Props = {
+    userCreatedYumcha: Boolean
+}
+
+const MyYumchas = ({userCreatedYumcha}: Props) => {
     const [loading, setLoading] = useState(false)
     // const [yumchas, setYumchas] = useState<Array<typeof YumchaCard>>([])
     const [yumchas, setYumchas] = useState<Array<Yumchas>>([])
     const user = supabase.auth.user()
     
     useEffect(() => {
-        GetYumchas()
+        if (userCreatedYumcha) {
+            GetMyYumchas()
+        } else {
+            GetAllYumchas()
+        }
 
         return () => {
             // this function will be called after the above functions finish
@@ -28,7 +36,7 @@ const MyYumchas = () => {
     }, [])
     
 
-    async function GetYumchas() {
+    async function GetMyYumchas() {
         try {
             setLoading(true)
             let {data, error, status} = await supabase
@@ -36,6 +44,7 @@ const MyYumchas = () => {
                 .select(`
                     yumchaID,
                     userID,
+                    creator,
                     yumcha (
                         id,
                         username,
@@ -67,6 +76,50 @@ const MyYumchas = () => {
             setLoading(false)
         }
     }
+
+    async function GetAllYumchas() {
+        try {
+            setLoading(true)
+            let {data, error, status} = await supabase
+                .from("yumcha-profiles")
+                .select(`
+                    yumchaID,
+                    userID,
+                    yumcha (
+                        id,
+                        username,
+                        seat,
+                        date,
+                        time,
+                        yumchaName,
+                        description,
+                        sameGender,
+                        tempPlace,
+                        numPeopleJoin
+                    )
+                `)
+                .not("userID", "eq", user?.id)   
+            
+            if (error && status !== 406) {
+                console.log("error not 406")
+                throw error
+            }
+
+            if (data) {
+                setYumchas(data)
+            }
+
+        } catch(error: any) {
+            console.error(error.message || error.description)
+
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function getAvatarYumcha() {
+        
+    }
     
     if (loading) {
         return(
@@ -78,15 +131,8 @@ const MyYumchas = () => {
 
     return(
         <>
-            {/* {yumchas.map(({description, tempPlace, time, username, yumchaName, id, date, seat, numPeopleJoin, sameGender}: any) => {
-                return(
-                    <YumchaCard description={description} tempPlace={tempPlace} time={time} username={username} yumchaName={yumchaName} key={id} date={date} seat={seat} numPeopleJoin={numPeopleJoin} id={id} />
-                )
-            })} */}
-
             {
                 yumchas.map(yumchaData => {
-                    console.log(yumchaData.yumcha)
                     return(
                         <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumchaID} />
                     )

@@ -18,7 +18,7 @@ export interface YumchaProps {
     numPeopleJoin?: number;
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, id} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
@@ -72,6 +72,14 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
       .toLocaleTimeString('en-US',
         {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
       );
+
+    //const dateString = new Date(Date.UTC(date.slice(0,4), date.slice(5,7), date.slice(8,10)))
+    const year = parseInt(date.slice(0,4))
+    const month = parseInt(date.slice(5,7))
+    const day = parseInt(date.slice(8,10))
+    const dateString = new Date(Date.UTC(year, month, day))
+    const options = {day: "2-digit", month: "short"} as const
+    const dateStr = dateString.toLocaleDateString("en-US", options)
       
     // let num = "6" + phoneNum
     // const whatsapp = `https://wa.me/${num}`
@@ -83,7 +91,10 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                     <div className={styles.visible}>
                         <span><b>{username}</b></span>
                         <span className={styles.title}>{yumchaName}</span>
-                        <span className = {styles.time}>{timeString12hr}</span>
+                        <span className = {styles.time}>
+                            {timeString12hr}<br />
+                            <span>{dateStr}</span>
+                        </span>
                         {/* <div className = {styles.expandBtn} onClick = {() => console.log("expandF2FYumcha(this)")}><b>&#62;</b></div> */}
                     </div>
                     <div className={styles.expanded}>

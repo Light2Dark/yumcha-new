@@ -2,11 +2,12 @@ import styles from "./styles.module.css"
 import { useEffect, useState } from "react"
 import { supabase } from "../../../utils/supabaseClient"
 import Image from "next/image"
+import userAvatar from "../../../public/images/user.png"
 
 interface Props {
-    url: string
+    url?: string
     size: number
-    onUpload: (filePath: string) => void
+    onUpload?: (filePath: string) => void
 }
 
 export default function Avatar({url, size, onUpload}: Props) {
@@ -14,7 +15,7 @@ export default function Avatar({url, size, onUpload}: Props) {
     const [uploading, setUploading] =  useState(false)
 
     useEffect(() => {
-    //   if (url) downloadImage(url)
+        if (url) downloadImage(url)
     }, [url])
 
     async function downloadImage(path: string) {
@@ -37,6 +38,7 @@ export default function Avatar({url, size, onUpload}: Props) {
     async function uploadAvatar(event: any) {
         try {
             setUploading(true)
+            const user = supabase.auth.user()
 
             if (!event.target.files || event.target.files.length === 0) {
                 throw new Error("You must select an image to upload.")
@@ -52,8 +54,10 @@ export default function Avatar({url, size, onUpload}: Props) {
                 .upload(filePath, file)
             
             if (uploadError) {throw uploadError}
+            console.log("filePath: ",filePath)
 
-            onUpload(filePath)
+            if (onUpload) {onUpload(filePath)}
+
         } catch(error: any) {
             alert(error.message)
         } finally {
@@ -64,9 +68,9 @@ export default function Avatar({url, size, onUpload}: Props) {
     return(
         <>
 
-        <div>
+        <div className={styles.avatar}>
             {avatarUrl ? (
-                <Image src={avatarUrl} alt="Avatar" height={size} width={size} className={styles.avatarImg} />
+                <Image src={avatarUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
             ) : (
                 <div className={styles.avatarNoImg} />
             )}
@@ -74,11 +78,78 @@ export default function Avatar({url, size, onUpload}: Props) {
 
         <div>
             <label htmlFor="avatar">{uploading ? "Uploading ...": "Upload"}</label>
-            <input type="file" name="avatar" id="avatar" accept="image/*" onChange={uploadAvatar} disabled={uploading} />
+            <input className={styles.avatarInput} type="file" name="avatar" id="avatar" accept="image/*" onChange={uploadAvatar} disabled={uploading} />
         </div>
 
 
         </>
         
+    )
+}
+
+export function HomeAvatar({size}: Props) {
+    const [avatarUrl, setAvatarUrl] = useState("")
+    const [blobUrl, setBlobUrl] = useState("")
+
+    useEffect(() => {
+        getProfile()
+    }, [avatarUrl])
+
+    async function downloadImage(path: string) {
+        try {
+            const {data, error} = await supabase.storage.from("avatars").download(path)
+            if (error) {
+                throw error
+            }
+
+            let url = ""
+            if (data) {
+                url = URL.createObjectURL(data)
+            }
+
+            setBlobUrl(url)
+
+        } catch(error: any) {
+            alert("Error downloading image: " + error.message)
+        } 
+    }
+
+    async function getProfile() {
+        try {
+            const user = supabase.auth.user()
+
+            let {data, error, status} = await supabase
+                .from("profiles")
+                .select("avatarUrl")
+                .eq("id", user?.id)
+                .single()
+
+            if (error && status !== 406) {
+                throw error
+            }
+
+            if (data) {
+                setAvatarUrl(data.avatarUrl)
+                if (avatarUrl) {
+                    downloadImage(avatarUrl)
+                }
+            }
+        } catch(error: any) {
+            alert(error.message || error.description)
+        } finally {
+            
+        }
+    }
+    
+    return(
+        <>
+            <div>
+                {blobUrl ? (
+                    <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
+                ) : (
+                    <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
+                )}
+            </div>
+        </>
     )
 }

@@ -1,7 +1,6 @@
 .twoCards {
     display: flex;
     flex-direction: column;
-    width: 90%;
 }
 
 .f2fyumcha {

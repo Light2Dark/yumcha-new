@@ -67,8 +67,10 @@ export default function Profile({session}: any) {
     });
 
     const onUpload = (url: string) => {
-        setAvatarUrl(url)
-        // updateProfile({avatarUrl})
+        if (url != "") {
+            setAvatarUrl(url)
+        }
+        updateProfile({avatarUrl: url})
     }
 
     function signOut() {
@@ -109,6 +111,7 @@ export default function Profile({session}: any) {
         try {
           setLoading(true)
           const user = supabase.auth.user()
+          console.log("profile should be updated when image is uploaded", avatarUrl)
     
           const updates = {
             id: user?.id,
@@ -154,7 +157,7 @@ export default function Profile({session}: any) {
 
             <div className={styles.formWidget}>
                 <form onSubmit={onSubmit}>
-                    <Avatar url={"avatarUrl"} onUpload={onUpload} size={150} />
+                    <Avatar url={avatarUrl} onUpload={onUpload} size={100} />
 
                     <div className={styles.twoLines}>
                         <label htmlFor="firstName">
@@ -200,7 +203,7 @@ export default function Profile({session}: any) {
                     
                     <div className={styles.center}>
                         <button className={`${buttonStyles.button} ${styles.completeBtn}`} onClick={() => {router.push("./../home")}}>Back</button>
-                        <button type="submit" onClick={onSubmit} className={`${buttonStyles.button} ${styles.completeBtn}`}>Change Profile</button>
+                        <button type="submit" onClick={onSubmit} className={`${buttonStyles.button} ${styles.completeBtn}`}>Update Profile</button>
                     </div>
                     
                 </form>
