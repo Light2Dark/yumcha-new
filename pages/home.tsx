@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 
 import Navbar from "../components/Header/Navbar/Navbar"
 import mainStyles from "../../styles/main.module.css"
+import buttonStyles from "../components/Shared/button.module.css"
 import styles from "../styles/home.module.css"
 import { supabase } from "../utils/supabaseClient"
 import { useState } from "react"
@@ -60,13 +61,18 @@ const Home = () => {
 
                     <div className={styles.titleDiv}>
                         <h4>My Yumchas</h4> 
-                        <button>Refresh (&nbsp;)</button>
+                        {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
                     <MyYumchas userCreatedYumcha={true} />
 
+                    <div className={styles.center}>
+                        <span>Can't find any yumchas you like?</span>
+                        <button className={buttonStyles.button} id={styles.planButton} onClick={() => {router.push("./planYumcha")}}>Plan Yumcha</button>
+                    </div>
+
                     <div className={styles.titleDiv}>
                         <h4>Nearby Yumchas</h4>
-                        <button>Refresh (&nbsp;)</button>
+                        {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
                     <MyYumchas userCreatedYumcha={false} />
                     
