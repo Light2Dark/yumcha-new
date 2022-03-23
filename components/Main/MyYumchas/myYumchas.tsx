@@ -8,8 +8,12 @@ import YumchaCard from "../YumchaCard/yumchaCard"
 
 export interface Yumchas {
     yumcha: YumchaProps;
-    yumchaID: string
-    userID: string
+    profiles: ProfileProps
+}
+
+type ProfileProps = {
+    id: string
+    avatarUrl: string
 }
 
 type Props = {
@@ -58,7 +62,7 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
                         numPeopleJoin
                     )
                 `)
-                .eq("userID", user?.id)   
+                .eq("userID", user?.id)   // should only select the yumchas a user creates
             
             if (error && status !== 406) {
                 console.log("error not 406")
@@ -85,6 +89,11 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
                 .select(`
                     yumchaID,
                     userID,
+                    creator,
+                    profiles (
+                        id,
+                        avatarUrl
+                    ),
                     yumcha (
                         id,
                         username,
@@ -116,10 +125,6 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
             setLoading(false)
         }
     }
-
-    async function getAvatarYumcha() {
-        
-    }
     
     if (loading) {
         return(
@@ -133,8 +138,10 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
         <>
             {
                 yumchas.map(yumchaData => {
+                    console.log("each Yumcha", yumchaData)
+                    console.log("avatarUrl", yumchaData.profiles.avatarUrl)
                     return(
-                        <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumchaID} />
+                        <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} creator={yumchaData.yumcha.creator} avatarUrl={yumchaData.profiles.avatarUrl} />
                     )
                 })
             }

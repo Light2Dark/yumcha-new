@@ -47,7 +47,6 @@ const Home = () => {
                 <div className={styles.topLine}>
                     <span className={styles.profile}>Edit your Profile</span>
                     <button className={styles.profileButton} onClick={profileRedirect}>
-                        {/* <Image src={userAvatar} alt="Your user profile" height={40} width={40} /> */}
                         <HomeAvatar size={40} />
                     </button>
                     

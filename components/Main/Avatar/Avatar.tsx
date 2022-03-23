@@ -3,11 +3,17 @@ import { useEffect, useState } from "react"
 import { supabase } from "../../../utils/supabaseClient"
 import Image from "next/image"
 import userAvatar from "../../../public/images/user.png"
+import userIcon from "../../../public/images/usercircle.svg"
 
 interface Props {
     url?: string
     size: number
     onUpload?: (filePath: string) => void
+}
+
+type YumchaCardProps = {
+    url: string
+    size: number
 }
 
 export default function Avatar({url, size, onUpload}: Props) {
@@ -148,6 +154,46 @@ export function HomeAvatar({size}: Props) {
                     <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
                 ) : (
                     <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
+                )}
+            </div>
+        </>
+    )
+}
+
+export function YumchaCardAvatar({size, url}: YumchaCardProps) {
+    const [blobUrl, setBlobUrl] = useState("")
+
+    useEffect(() => {
+        if (url)
+        downloadImage(url)
+    }, [url])
+
+    async function downloadImage(path: string) {
+        try {
+            const {data, error} = await supabase.storage.from("avatars").download(path)
+            if (error) {
+                throw error
+            }
+
+            let url = ""
+            if (data) {
+                url = URL.createObjectURL(data)
+            }
+
+            setBlobUrl(url)
+
+        } catch(error: any) {
+            alert("Error downloading image: " + error.message)
+        } 
+    }
+    
+    return(
+        <>
+            <div>
+                {blobUrl ? (
+                    <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
+                ) : (
+                    <Image src={userIcon} alt="Generic icon of a person" height={40} width={40} />
                 )}
             </div>
         </>
