@@ -49,6 +49,10 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
                     yumchaID,
                     userID,
                     creator,
+                    profiles (
+                        id,
+                        avatarUrl
+                    ),
                     yumcha (
                         id,
                         username,
@@ -138,8 +142,7 @@ const MyYumchas = ({userCreatedYumcha}: Props) => {
         <>
             {
                 yumchas.map(yumchaData => {
-                    console.log("each Yumcha", yumchaData)
-                    console.log("avatarUrl", yumchaData.profiles.avatarUrl)
+                    // console.log("each Yumcha", yumchaData)
                     return(
                         <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} creator={yumchaData.yumcha.creator} avatarUrl={yumchaData.profiles.avatarUrl} />
                     )

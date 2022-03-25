@@ -26,6 +26,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
     const [updatingDB, setUpdatingDB] = useState(false)
+    console.log("avatarUrl", avatarUrl)
 
     function ConfirmYumcha() {
         if (confirm("Join this yumcha?")) {
