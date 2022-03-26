@@ -32,6 +32,14 @@ const Home = () => {
         }
     }
 
+    const planYumcha = () => {
+        if (user === null) {
+            NotSignedInAlert()
+        } else {
+            router.push("./planYumcha")   
+        }
+    }
+
     return(
         <>
             <Head>
@@ -67,7 +75,7 @@ const Home = () => {
 
                     <div className={styles.center}>
                         <span>Can't find any yumchas you like?</span>
-                        <button className={buttonStyles.button} id={styles.planButton} onClick={() => {router.push("./planYumcha")}}>Plan Yumcha</button>
+                        <button className={buttonStyles.button} id={styles.planButton} onClick={planYumcha}>Plan Yumcha</button>
                     </div>
 
                     <div className={styles.titleDiv}>
