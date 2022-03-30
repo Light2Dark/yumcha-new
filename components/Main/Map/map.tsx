@@ -5,6 +5,7 @@ import { createCustomEqual } from "fast-equals";
 
 import Marker from "./marker";
 import styles from "./mapStyles.module.css"
+import {YumchaLocations} from "../../../pages/home"
 
 interface MapProps extends google.maps.MapOptions {
     style: { [key: string]: string };
@@ -109,7 +110,11 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
     )
 }
 
-const App = () => {
+type Props = {
+    markerLocations: YumchaLocations[]
+}
+
+const App = ({markerLocations}: Props) => {
     const [zoom, setZoom] = useState(18)
     const [center, setCenter] = useState<google.maps.LatLngLiteral>({
         lat: 3.0670144765507605,
@@ -129,7 +134,20 @@ const App = () => {
 
     return(
         <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-            <Marker position={center}></Marker>
+
+            {markerLocations.map((location) => {
+
+                if (location.latLong) {
+                    let position: google.maps.LatLngLiteral = {
+                        lat: Number(location.latLong[0]),
+                        lng: Number(location.latLong[1])
+                    }
+                    return(
+                        <Marker key={location.id} position={position}></Marker>
+                    )
+                }
+            })}
+            
         </Map>
     )
 }

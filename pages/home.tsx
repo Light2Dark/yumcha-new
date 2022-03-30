@@ -8,9 +8,17 @@ import mainStyles from "../../styles/main.module.css"
 import buttonStyles from "../components/Shared/button.module.css"
 import styles from "../styles/home.module.css"
 import { supabase } from "../utils/supabaseClient"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import MyYumchas from "../components/Main/MyYumchas/myYumchas"
 import { HomeAvatar } from "../components/Main/Avatar/Avatar"
+
+import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
+import Map from "../components/Main/Map/map"
+
+export interface YumchaLocations {
+    id: number
+    latLong: string[]
+}
 
 const Home = () => {
     const router = useRouter()
@@ -40,6 +48,46 @@ const Home = () => {
         }
     }
 
+    // store yumchas from db, so that we can update the map with markers
+    // pass setYumchas method to MyYumchas
+    const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
+
+    useEffect(() => {
+        let isMounted = true
+        getYumchaLocations(isMounted)
+        
+        return () => {
+            isMounted = false
+        }
+    }, [])
+    
+
+    async function getYumchaLocations(isMounted: boolean) {
+        try {
+            let {data, error, status} = await supabase
+                .from("yumcha")
+                .select(`
+                    id,
+                    latLong
+                `)
+            
+            if (error && status !== 406) {
+                console.log("error not 406")
+                throw error
+            }
+
+            if (data && isMounted) {
+                setYumchasLatLong(data)
+            }
+
+        } catch(error: any) {
+            console.error(error.message || error.description)
+
+        } finally {
+
+        }
+    }
+
     return(
         <>
             <Head>
@@ -61,8 +109,9 @@ const Home = () => {
                     
                 </div>
 
-                <div className={styles.mapDiv}>
-                    <span>Google Maps API</span>
+                {/* <div className={styles.mapDiv}> */}
+                <div>
+                    <Map markerLocations={yumchasLatLong} />
                 </div>
 
                 <div className={styles.yumchaTitle}>

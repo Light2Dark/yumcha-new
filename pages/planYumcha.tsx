@@ -46,7 +46,7 @@ const Page: NextPage = () => {
             <main>
                 <Wrapper apiKey={API_KEY}>
                     <h1 className={mainStyles.h1}>F2F Yumchas</h1>
-                    <Map />
+                    {/* <Map /> */}
 
                     <div>
                         <YumchaForm setGeometry={setGeometry} />
