@@ -11,7 +11,8 @@ export interface YumchaProps {
     username: String;
     date: String;
     time: String;
-    tempPlace: String;
+    tempPlace?: String;
+    latLong: string[];
     seat: String;
     yumchaName: String;
     description: String;

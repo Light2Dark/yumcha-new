@@ -3,10 +3,11 @@ import Autocomplete from "react-google-autocomplete"
 // bounds: defaultBounds,
 
 interface Props {
-    setLatLong: (geometry: string[]) => void
+    setLatLongMap: (geometry: string[]) => void
+    setLatLongDB: (geometry: string[]) => void
 }
 
-const GoogleAutocomplete = ({setLatLong}: Props) => {
+const GoogleAutocomplete = ({setLatLongMap, setLatLongDB}: Props) => {
     const options = {
         componentRestrictions: { country: "my" },
         fields: ["address_components","name", "geometry"],
@@ -16,7 +17,7 @@ const GoogleAutocomplete = ({setLatLong}: Props) => {
     
     return(
         <>
-            <Autocomplete 
+            <Autocomplete
                 apiKey={process.env.NEXT_PUBLIC_MAPS_API}
                 libraries={["places"]}
                 onPlaceSelected={(place) => {
@@ -26,7 +27,8 @@ const GoogleAutocomplete = ({setLatLong}: Props) => {
 
                     if (lat && long) {
                         let geometryPlace = [lat, long]
-                        setLatLong(geometryPlace)
+                        setLatLongMap(geometryPlace)
+                        setLatLongDB(geometryPlace)
                     }
                 }}
                 options={options}

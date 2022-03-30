@@ -6,8 +6,6 @@ import { createCustomEqual } from "fast-equals";
 import Marker from "./marker";
 import styles from "./mapStyles.module.css"
 
-const API_KEY: string = process.env.NEXT_PUBLIC_MAPS_API || ""
-
 interface MapProps extends google.maps.MapOptions {
     style: { [key: string]: string };
     onClick?: (e: google.maps.MapMouseEvent) => void
@@ -130,11 +128,9 @@ const App = () => {
     }
 
     return(
-        <Wrapper apiKey={API_KEY} render={render}>
-            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-                <Marker position={center}></Marker>
-            </Map>
-        </Wrapper>
+        <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
+            <Marker position={center}></Marker>
+        </Map>
     )
 }
 

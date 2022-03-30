@@ -116,7 +116,7 @@ export function HomeAvatar({size}: Props) {
         }
     }, [avatarUrl])
 
-    async function downloadImage(path: string) {
+    async function downloadImage(path: string, isMounted: boolean) {
         try {
             const {data, error} = await supabase.storage.from("avatars").download(path)
             if (error) {
@@ -128,8 +128,10 @@ export function HomeAvatar({size}: Props) {
                 url = URL.createObjectURL(data)
             }
 
-            setBlobUrl(url)
-
+            if (isMounted) {
+                setBlobUrl(url)
+            }
+        
         } catch(error: any) {
             alert("Error downloading image: " + error.message)
         } 
@@ -152,7 +154,7 @@ export function HomeAvatar({size}: Props) {
             if (data && isMounted) {
                 setAvatarUrl(data.avatarUrl)
                 if (avatarUrl) {
-                    downloadImage(avatarUrl)
+                    downloadImage(avatarUrl, isMounted)
                 }
             }
         } catch(error: any) {
@@ -179,11 +181,17 @@ export function YumchaCardAvatar({size, url}: YumchaCardProps) {
     const [blobUrl, setBlobUrl] = useState("")
 
     useEffect(() => {
-        if (url)
-        downloadImage(url)
+        let isMounted = true
+        if (url) {
+            downloadImage(url, isMounted)
+        }
+
+        return () => {
+            isMounted = false
+        }
     }, [url])
 
-    async function downloadImage(path: string) {
+    async function downloadImage(path: string, isMounted: boolean) {
         try {
             const {data, error} = await supabase.storage.from("avatars").download(path)
             if (error) {
@@ -195,7 +203,9 @@ export function YumchaCardAvatar({size, url}: YumchaCardProps) {
                 url = URL.createObjectURL(data)
             }
 
-            setBlobUrl(url)
+            if (isMounted) {
+                setBlobUrl(url)
+            }
 
         } catch(error: any) {
             alert("Error downloading image: " + error.message)

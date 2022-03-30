@@ -13,19 +13,16 @@ export interface YumchaProfileProps {
     creator: boolean
 }
 
-const Form = () => {
+type Props = {
+    setGeometry: (latLong: string[]) => void
+}
+
+const Form = ({setGeometry}: Props) => {
     const [loading, setLoading] = useState(false)
     const [yumchaTableUpdated, setYumchaTableUpdated] = useState(false)
     const [yumchaID, setYumchaID] = useState(0)
     const [selectedPlaceLatLong, setSelectedPlaceLatLong] = useState<string[]>([])
     const router = useRouter()
-
-    const setGeometry = (value: string[]) => {
-        setSelectedPlaceLatLong(value)
-    }
-
-    let x: any = []
-    console.log("length:", x.length)
 
     useEffect(() => {
         let isMounted = true
@@ -84,12 +81,16 @@ const Form = () => {
     async function BookYumcha(event: any) {
         event.preventDefault()
         
+        if (selectedPlaceLatLong.length <= 1) {
+            return
+        }
+
         const Yumcha: YumchaProps = {
             username: event.target.name.value,
             description: event.target.description.value,
             time: event.target.time.value,
             date: event.target.date.value,
-            tempPlace: event.target.place.value,
+            latLong: selectedPlaceLatLong,
             seat: event.target.seatLocation.value,
             yumchaName: event.target.yumchaName.value
             // sameGender: event.target.sameGender.value
@@ -151,7 +152,7 @@ const Form = () => {
 
             <div id = {styles.locationSelector}>
                 <label htmlFor="place" className = {styles.block}>Place:</label>
-                <GoogleAutocomplete setLatLong={setGeometry} />
+                <GoogleAutocomplete setLatLongMap={setGeometry} setLatLongDB={setSelectedPlaceLatLong} />
             </div>
 
             <div>
