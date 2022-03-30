@@ -3,7 +3,7 @@ import Image from "next/image"
 import userIcon from "../../../public/images/usercircle.svg"
 import { supabase } from "../../../utils/supabaseClient"
 import { useEffect, useState } from "react"
-import { YumchaCardAvatar } from "../Avatar/Avatar"
+// import { YumchaCardAvatar } from "../Avatar/Avatar"
 
 export interface YumchaProps {
     id?: number;
@@ -22,7 +22,7 @@ export interface YumchaProps {
     creator?: String;
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, avatarUrl, creator} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, creator} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
@@ -102,12 +102,12 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                     </div>
                     <div className={styles.expanded}>
                         
-                        {avatarUrl ? (
+                        {/* {avatarUrl ? (
                             <YumchaCardAvatar size={50} url={avatarUrl} />
                         ) : (
                             <Image src={userIcon} alt="Icon of a person" className={styles.f2fimg} height={"50px"} width={"50px"} />
-                        )}
-                        
+                        )} */}
+                        <Image src={userIcon} alt="Icon of a person" className={styles.f2fimg} height={"50px"} width={"50px"} />
 
                         <div className={styles.midText}>
                             <span>{description}</span>

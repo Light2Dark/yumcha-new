@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Head from "next/head";
 import styles from "../../styles/profile.module.css"
 import buttonStyles from "../../components/Shared/button.module.css"
-import Avatar from "../../components/Main/Avatar/Avatar";
+// import Avatar from "../../components/Main/Avatar/Avatar";
 import Navbar from "../../components/Header/Navbar/Navbar";
 
 export enum GenderEnum {
@@ -161,7 +161,7 @@ export default function Profile({session}: any) {
 
             <div className={styles.formWidget}>
                 <form onSubmit={onSubmit}>
-                    <Avatar url={avatarUrl} onUpload={onUpload} size={100} />
+                    {/* <Avatar url={avatarUrl} onUpload={onUpload} size={100} /> */}
 
                     <div className={styles.twoLines}>
                         <label htmlFor="firstName">

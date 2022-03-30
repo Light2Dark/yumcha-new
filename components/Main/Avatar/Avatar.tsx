@@ -16,211 +16,211 @@ type YumchaCardProps = {
     size: number
 }
 
-export default function Avatar({url, size, onUpload}: Props) {
-    const [avatarUrl, setAvatarUrl] = useState("")
-    const [uploading, setUploading] =  useState(false)
+// export default function Avatar({url, size, onUpload}: Props) {
+//     const [avatarUrl, setAvatarUrl] = useState("")
+//     const [uploading, setUploading] =  useState(false)
 
-    useEffect(() => {
-        let isMounted = true
-        if (url) downloadImage(url, isMounted)
+//     useEffect(() => {
+//         let isMounted = true
+//         if (url) downloadImage(url, isMounted)
 
-        return () => {
-            isMounted = false
-        }
-    }, [url])
+//         return () => {
+//             isMounted = false
+//         }
+//     }, [url])
 
-    async function downloadImage(path: string, isMounted: boolean) {
-        try {
-            const {data, error} = await supabase.storage.from("avatars").download(path)
-            if (error) {
-                throw error
-            }
+//     async function downloadImage(path: string, isMounted: boolean) {
+//         try {
+//             const {data, error} = await supabase.storage.from("avatars").download(path)
+//             if (error) {
+//                 throw error
+//             }
 
-            let url = ""
-            if (data) {
-                url = URL.createObjectURL(data)
-            }
+//             let url = ""
+//             if (data) {
+//                 url = URL.createObjectURL(data)
+//             }
 
-            if(isMounted) {
-                setAvatarUrl(url)
-            }
+//             if(isMounted) {
+//                 setAvatarUrl(url)
+//             }
             
-        } catch(error: any) {
-            alert("Error downloading image: " + error.message)
-        } 
-    }
+//         } catch(error: any) {
+//             alert("Error downloading image: " + error.message)
+//         } 
+//     }
 
-    async function uploadAvatar(event: any) {
-        try {
-            setUploading(true)
-            const user = supabase.auth.user()
+//     async function uploadAvatar(event: any) {
+//         try {
+//             setUploading(true)
+//             const user = supabase.auth.user()
 
-            if (!event.target.files || event.target.files.length === 0) {
-                throw new Error("You must select an image to upload.")
-            } 
+//             if (!event.target.files || event.target.files.length === 0) {
+//                 throw new Error("You must select an image to upload.")
+//             } 
 
-            const file = event.target.files[0]
-            const fileExt = file.name.split(".").pop()
-            const fileName = `${Math.random()}.${fileExt}`
-            const filePath = `${fileName}`
+//             const file = event.target.files[0]
+//             const fileExt = file.name.split(".").pop()
+//             const fileName = `${Math.random()}.${fileExt}`
+//             const filePath = `${fileName}`
             
-            let {error: uploadError} = await supabase.storage
-                .from("avatars")
-                .upload(filePath, file)
+//             let {error: uploadError} = await supabase.storage
+//                 .from("avatars")
+//                 .upload(filePath, file)
             
-            if (uploadError) {throw uploadError}
-            console.log("filePath: ",filePath)
+//             if (uploadError) {throw uploadError}
+//             console.log("filePath: ",filePath)
 
-            if (onUpload) {onUpload(filePath)}
+//             if (onUpload) {onUpload(filePath)}
 
-        } catch(error: any) {
-            alert(error.message)
-        } finally {
-            setUploading(false)
-        }
-    }
+//         } catch(error: any) {
+//             alert(error.message)
+//         } finally {
+//             setUploading(false)
+//         }
+//     }
     
-    return(
-        <>
+//     return(
+//         <>
 
-        <div className={styles.avatar}>
-            {avatarUrl ? (
-                <Image src={avatarUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
-            ) : (
-                <div className={styles.avatarNoImg} />
-            )}
-        </div>
+//         <div className={styles.avatar}>
+//             {avatarUrl ? (
+//                 <Image src={avatarUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
+//             ) : (
+//                 <div className={styles.avatarNoImg} />
+//             )}
+//         </div>
 
-        <div>
-            <label htmlFor="avatar">{uploading ? "Uploading ...": "Upload"}</label>
-            <input className={styles.avatarInput} type="file" name="avatar" id="avatar" accept="image/*" onChange={uploadAvatar} disabled={uploading} />
-        </div>
+//         <div>
+//             <label htmlFor="avatar">{uploading ? "Uploading ...": "Upload"}</label>
+//             <input className={styles.avatarInput} type="file" name="avatar" id="avatar" accept="image/*" onChange={uploadAvatar} disabled={uploading} />
+//         </div>
 
 
-        </>
+//         </>
         
-    )
-}
+//     )
+// }
 
-export function HomeAvatar({size}: Props) {
-    const [avatarUrl, setAvatarUrl] = useState("")
-    const [blobUrl, setBlobUrl] = useState("")
+// export function HomeAvatar({size}: Props) {
+//     const [avatarUrl, setAvatarUrl] = useState("")
+//     const [blobUrl, setBlobUrl] = useState("")
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        let isMounted = true
-        getProfile(isMounted)
+//         let isMounted = true
+//         getProfile(isMounted)
 
-        return () => {
-            isMounted = false
-        }
-    }, [avatarUrl])
+//         return () => {
+//             isMounted = false
+//         }
+//     }, [avatarUrl])
 
-    async function downloadImage(path: string, isMounted: boolean) {
-        try {
-            const {data, error} = await supabase.storage.from("avatars").download(path)
-            if (error) {
-                throw error
-            }
+//     async function downloadImage(path: string, isMounted: boolean) {
+//         try {
+//             const {data, error} = await supabase.storage.from("avatars").download(path)
+//             if (error) {
+//                 throw error
+//             }
 
-            let url = ""
-            if (data) {
-                url = URL.createObjectURL(data)
-            }
+//             let url = ""
+//             if (data) {
+//                 url = URL.createObjectURL(data)
+//             }
 
-            if (isMounted) {
-                setBlobUrl(url)
-            }
+//             if (isMounted) {
+//                 setBlobUrl(url)
+//             }
         
-        } catch(error: any) {
-            alert("Error downloading image: " + error.message)
-        } 
-    }
+//         } catch(error: any) {
+//             alert("Error downloading image: " + error.message)
+//         } 
+//     }
 
-    async function getProfile(isMounted: boolean) {
-        try {
-            const user = supabase.auth.user()
+//     async function getProfile(isMounted: boolean) {
+//         try {
+//             const user = supabase.auth.user()
 
-            let {data, error, status} = await supabase
-                .from("profiles")
-                .select("avatarUrl")
-                .eq("id", user?.id)
-                .single()
+//             let {data, error, status} = await supabase
+//                 .from("profiles")
+//                 .select("avatarUrl")
+//                 .eq("id", user?.id)
+//                 .single()
 
-            if (error && status !== 406) {
-                throw error
-            }
+//             if (error && status !== 406) {
+//                 throw error
+//             }
 
-            if (data && isMounted) {
-                setAvatarUrl(data.avatarUrl)
-                if (avatarUrl) {
-                    downloadImage(avatarUrl, isMounted)
-                }
-            }
-        } catch(error: any) {
-            alert(error.message || error.description)
-        } finally {
+//             if (data && isMounted) {
+//                 setAvatarUrl(data.avatarUrl)
+//                 if (avatarUrl) {
+//                     downloadImage(avatarUrl, isMounted)
+//                 }
+//             }
+//         } catch(error: any) {
+//             alert(error.message || error.description)
+//         } finally {
             
-        }
-    }
+//         }
+//     }
     
-    return(
-        <>
-            <div>
-                {blobUrl ? (
-                    <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
-                ) : (
-                    <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
-                )}
-            </div>
-        </>
-    )
-}
+//     return(
+//         <>
+//             <div>
+//                 {blobUrl ? (
+//                     <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
+//                 ) : (
+//                     <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
+//                 )}
+//             </div>
+//         </>
+//     )
+// }
 
-export function YumchaCardAvatar({size, url}: YumchaCardProps) {
-    const [blobUrl, setBlobUrl] = useState("")
+// export function YumchaCardAvatar({size, url}: YumchaCardProps) {
+//     const [blobUrl, setBlobUrl] = useState("")
 
-    useEffect(() => {
-        let isMounted = true
-        if (url) {
-            downloadImage(url, isMounted)
-        }
+//     useEffect(() => {
+//         let isMounted = true
+//         if (url) {
+//             downloadImage(url, isMounted)
+//         }
 
-        return () => {
-            isMounted = false
-        }
-    }, [url])
+//         return () => {
+//             isMounted = false
+//         }
+//     }, [url])
 
-    async function downloadImage(path: string, isMounted: boolean) {
-        try {
-            const {data, error} = await supabase.storage.from("avatars").download(path)
-            if (error) {
-                throw error
-            }
+//     async function downloadImage(path: string, isMounted: boolean) {
+//         try {
+//             const {data, error} = await supabase.storage.from("avatars").download(path)
+//             if (error) {
+//                 throw error
+//             }
 
-            let url = ""
-            if (data) {
-                url = URL.createObjectURL(data)
-            }
+//             let url = ""
+//             if (data) {
+//                 url = URL.createObjectURL(data)
+//             }
 
-            if (isMounted) {
-                setBlobUrl(url)
-            }
+//             if (isMounted) {
+//                 setBlobUrl(url)
+//             }
 
-        } catch(error: any) {
-            alert("Error downloading image: " + error.message)
-        } 
-    }
+//         } catch(error: any) {
+//             alert("Error downloading image: " + error.message)
+//         } 
+//     }
     
-    return(
-        <>
-            <div>
-                {blobUrl ? (
-                    <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
-                ) : (
-                    <Image src={userIcon} alt="Generic icon of a person" height={40} width={40} />
-                )}
-            </div>
-        </>
-    )
-}
+//     return(
+//         <>
+//             <div>
+//                 {blobUrl ? (
+//                     <Image src={blobUrl} alt="Avatar" height={size} width={size} objectFit="cover" className={styles.avatarImg} />
+//                 ) : (
+//                     <Image src={userIcon} alt="Generic icon of a person" height={40} width={40} />
+//                 )}
+//             </div>
+//         </>
+//     )
+// }
