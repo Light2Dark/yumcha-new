@@ -44,14 +44,18 @@ export default function Profile({session}: any) {
     const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormProps>();
 
     useEffect(() => {
-        getProfile()
+        
+        let isMounted = true
+        getProfile(isMounted)
+
+        return () => {
+            isMounted = false
+        }
     }, [session])
     
     const onSubmit = handleSubmit((data: any) => {
         const interests: string = data.interests || ""
         const interestsArray = interests.split(",")
-        console.log(interestsArray)
-
         console.log(data)
 
         const profile: ProfileProps = {
@@ -78,7 +82,7 @@ export default function Profile({session}: any) {
         alert("Signed out")
     }
 
-    async function getProfile() {
+    async function getProfile(isMounted: boolean) {
         try {
             setLoading(true)
             const user = supabase.auth.user()
@@ -93,7 +97,7 @@ export default function Profile({session}: any) {
                 throw error
             }
 
-            if (data) {
+            if (data && isMounted) {
                 setFirstName(data.firstName)
                 setLastName(data.lastName)
                 setInterests(data.interests)

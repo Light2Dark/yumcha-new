@@ -82,9 +82,14 @@
     width: 80%;
 }
 
-.locationSelector img {
+#locationSelector img {
     position: absolute;
     margin: 7px 13px;
+}
+
+#locationSelector input {
+    width: 90% !important;
+    color: white;
 }
 
 .select {

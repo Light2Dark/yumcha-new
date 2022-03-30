@@ -12,10 +12,15 @@ const Page: NextPage = () => {
             <Head>
                 <title>Yumcha</title>
                 <link rel="icon" href="/favicon.ico" />
+                
+                <script
+                    type="text/javascript"
+                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`}
+                ></script>
             </Head>
 
             <header>
-                <Navbar />
+                <Navbar loggedIn={true} />
             </header>
 
             <main>

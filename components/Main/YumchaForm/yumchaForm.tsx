@@ -2,27 +2,100 @@ import styles from "./form.module.css"
 import Image from "next/image"
 import locationPic from "../../../public/logos/choosePlace.svg"
 import { YumchaProps } from "../YumchaCard/yumchaCard"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "../../../utils/supabaseClient"
+import Router, { useRouter } from "next/router"
+import GoogleAutocomplete from "./autocomplete"
+
+export interface YumchaProfileProps {
+    userID: string
+    yumchaID: number
+    creator: boolean
+}
 
 const Form = () => {
     const [loading, setLoading] = useState(false)
+    const [yumchaTableUpdated, setYumchaTableUpdated] = useState(false)
+    const [yumchaID, setYumchaID] = useState(0)
+    const [selectedPlaceLatLong, setSelectedPlaceLatLong] = useState<string[]>([])
+    const router = useRouter()
+
+    const setGeometry = (value: string[]) => {
+        setSelectedPlaceLatLong(value)
+    }
+
+    let x: any = []
+    console.log("length:", x.length)
+
+    useEffect(() => {
+        let isMounted = true
+
+        if (yumchaTableUpdated && isMounted) {
+            InsertYumchaProfiles()
+        }
+
+        return () => {
+            setYumchaTableUpdated(false) // dk if this works
+            isMounted = false
+        }
+    }, [yumchaTableUpdated])
+
+    async function InsertYumchaProfiles() {
+        // inserting into yumcha-profiles table
+        // get yumchaID returned from BookYumcha function. Insert yumchaID, userID and creator into yumcha-profiles table
+
+        const user = supabase.auth.user()
+        
+        if (!user) {
+            alert("You have to sign up first")
+            router.push("../home")
+            return
+        }
+
+        const YumchaProfile: YumchaProfileProps = {
+            creator: true,
+            userID: user?.id,
+            yumchaID: yumchaID
+        }
+
+        try {
+            setLoading(true)
+            const {data, error} = await supabase
+                .from("yumcha-profiles")
+                .insert(YumchaProfile)
+            
+            if(data) {
+                console.log("Yumcha-profile data inserted")
+            }
+
+            if (error) {
+                throw error
+            }
+        }
+        catch(error: any) {
+            console.error(error.message || error.description)
+            alert("Error with yumcha-profiles table")
+        }
+        finally {
+            setLoading(false)
+        }
+    }
 
     async function BookYumcha(event: any) {
         event.preventDefault()
         
         const Yumcha: YumchaProps = {
             username: event.target.name.value,
-            // phoneNum: event.target.phoneNum.value,
             description: event.target.description.value,
             time: event.target.time.value,
             date: event.target.date.value,
             tempPlace: event.target.place.value,
             seat: event.target.seatLocation.value,
-            yumchaName: event.target.yumchaName.value,
+            yumchaName: event.target.yumchaName.value
             // sameGender: event.target.sameGender.value
         }
 
+        // inserting into yumcha table
         try {
             setLoading(true)
             const {data, error} = await supabase
@@ -31,18 +104,20 @@ const Form = () => {
             
             if(data) {
                 alert("Success! Enjoy your yumcha")
+                setYumchaID(data[0].id)
             }
 
             if (error) {
                 throw error
             }
         }
-        catch(error) {
-            console.error(error)
+        catch(error: any) {
+            console.error(error.message || error.description)
             alert("Error")
         }
         finally {
             setLoading(false)
+            setYumchaTableUpdated(true)
             event.target.reset()
         }
     }
@@ -54,11 +129,6 @@ const Form = () => {
                     <label htmlFor="name" className={styles.block}>Name:</label>
                     <input type="text" name="name" id="name" required placeholder="Jenna" className = {styles.largerInput} />
                 </div>
-    
-                {/* <div>
-                    <label htmlFor="phoneNum" className = {styles.block}>Phone Number:</label>
-                    <input type="tel" name="phoneNum" id="phoneNum" required placeholder="012706869" className = {styles.smallerInput} />
-                </div> */}
             </div>
 
             <div className = {styles.datetime}>
@@ -73,10 +143,15 @@ const Form = () => {
                 </div>
             </div>
 
-            <div id = {styles.locationSelector}>
+            {/* <div id = {styles.locationSelector}>
                 <label htmlFor="place" className = {styles.block}>Place:</label>
                 <input type="text" name="place" id="place" required className = {styles.location} placeholder="KFC, Jalan Sambanthan" />
-                {/* <Image src={locationPic} alt="Choose location on map"></Image> */}
+                <Image src={locationPic} alt="Choose location on map"></Image>
+            </div> */}
+
+            <div id = {styles.locationSelector}>
+                <label htmlFor="place" className = {styles.block}>Place:</label>
+                <GoogleAutocomplete setLatLong={setGeometry} />
             </div>
 
             <div>
@@ -93,16 +168,6 @@ const Form = () => {
                 <label htmlFor="description" className = {styles.block}>Description:</label>
                 <textarea name="description" id="description" rows={2} placeholder="We can talk about anime and food!" autoComplete="on" style = {{width: "80%"}}></textarea>
             </div>
-
-            {/* <div style = {{marginTop: "10px"}} className={styles.select}>
-                <input type="checkbox" name="sameGender" id="sameGender" value = "1" />
-                <label htmlFor="sameGender" className = {styles.smaller}>Only yumcha with same gender</label>
-            </div> */}
-
-            {/* <div className={styles.select}>
-                <input type="checkbox" name="whatsapp" id="whatsapp" value = "1" required />
-                <label htmlFor="whatsapp" className = {styles.smaller}>Users can WhatsApp you</label>
-            </div> */}
 
             <div className = {styles.submitBtn}>
                 <button id = "submitButton" type="submit">Plan Yumcha</button>

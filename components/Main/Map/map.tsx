@@ -132,7 +132,7 @@ const App = () => {
     return(
         <Wrapper apiKey={API_KEY} render={render}>
             <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-                {/* <Marker position={center}></Marker> */}
+                <Marker position={center}></Marker>
             </Map>
         </Wrapper>
     )

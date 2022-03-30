@@ -21,10 +21,15 @@ export default function Avatar({url, size, onUpload}: Props) {
     const [uploading, setUploading] =  useState(false)
 
     useEffect(() => {
-        if (url) downloadImage(url)
+        let isMounted = true
+        if (url) downloadImage(url, isMounted)
+
+        return () => {
+            isMounted = false
+        }
     }, [url])
 
-    async function downloadImage(path: string) {
+    async function downloadImage(path: string, isMounted: boolean) {
         try {
             const {data, error} = await supabase.storage.from("avatars").download(path)
             if (error) {
@@ -35,7 +40,11 @@ export default function Avatar({url, size, onUpload}: Props) {
             if (data) {
                 url = URL.createObjectURL(data)
             }
-            setAvatarUrl(url)
+
+            if(isMounted) {
+                setAvatarUrl(url)
+            }
+            
         } catch(error: any) {
             alert("Error downloading image: " + error.message)
         } 
@@ -98,7 +107,13 @@ export function HomeAvatar({size}: Props) {
     const [blobUrl, setBlobUrl] = useState("")
 
     useEffect(() => {
-        getProfile()
+
+        let isMounted = true
+        getProfile(isMounted)
+
+        return () => {
+            isMounted = false
+        }
     }, [avatarUrl])
 
     async function downloadImage(path: string) {
@@ -120,7 +135,7 @@ export function HomeAvatar({size}: Props) {
         } 
     }
 
-    async function getProfile() {
+    async function getProfile(isMounted: boolean) {
         try {
             const user = supabase.auth.user()
 
@@ -134,7 +149,7 @@ export function HomeAvatar({size}: Props) {
                 throw error
             }
 
-            if (data) {
+            if (data && isMounted) {
                 setAvatarUrl(data.avatarUrl)
                 if (avatarUrl) {
                     downloadImage(avatarUrl)
