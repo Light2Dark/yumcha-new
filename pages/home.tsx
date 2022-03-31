@@ -14,6 +14,7 @@ import MyYumchas from "../components/Main/MyYumchas/myYumchas"
 
 import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
 import Map from "../components/Main/Map/map"
+import { getAllYumchas } from "./api/getYumchas"
 
 export interface YumchaLocations {
     id: number
@@ -25,6 +26,8 @@ const Home = () => {
     const user = supabase.auth.user()
 
     const [loading, setLoading] = useState(false)
+    const [yumchas, setYumchas] = useState<Array<Yumchas>>([])
+    const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
 
     const profileRedirect = () => {
         if (user === null) {
@@ -47,20 +50,40 @@ const Home = () => {
             router.push("./planYumcha")   
         }
     }
-
-    // store yumchas from db, so that we can update the map with markers
-    // pass setYumchas method to MyYumchas
-    const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
+        
+    useEffect(() => {
+      let isMounted = true
+      getAllYumchas({isMounted, setLoading, setData: setYumchas})
+    
+      return () => {
+        isMounted = false
+      }
+    }, [])
 
     useEffect(() => {
+        let yumchasWithLoc: YumchaLocations[] = []
         let isMounted = true
-        getYumchaLocations(isMounted)
-        
+
+        if (yumchas.length > 0) {
+            yumchas.map(yumcha => {
+                if (yumcha.yumcha.id && yumcha.yumcha.latLong){
+                    const yumchaLocation: YumchaLocations = {
+                        id: yumcha.yumcha.id,
+                        latLong: yumcha.yumcha.latLong
+                    }
+                    yumchasWithLoc.push(yumchaLocation)
+                }
+            })
+
+            if (isMounted) {
+                setYumchasLatLong(yumchasWithLoc)
+            }  
+        }
+
         return () => {
             isMounted = false
         }
-    }, [])
-    
+    }, [yumchas])
 
     async function getYumchaLocations(isMounted: boolean) {
         try {
@@ -77,6 +100,7 @@ const Home = () => {
             }
 
             if (data && isMounted) {
+                console.log(data)
                 setYumchasLatLong(data)
             }
 
@@ -110,9 +134,8 @@ const Home = () => {
                     
                 </div>
 
-                {/* <div className={styles.mapDiv}> */}
                 <div>
-                    <Map markerLocations={yumchasLatLong} />
+                    {/* <Map markerLocations={yumchasLatLong} /> */}
                 </div>
 
                 <div className={styles.yumchaTitle}>
@@ -121,7 +144,7 @@ const Home = () => {
                         <h4>My Yumchas</h4> 
                         {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
-                    <MyYumchas userCreatedYumcha={true} />
+                    <MyYumchas userCreatedYumcha={true} yumchas={yumchas} />
 
                     <div className={styles.center}>
                         <span>Can't find any yumchas you like?</span>
@@ -132,7 +155,7 @@ const Home = () => {
                         <h4>Nearby Yumchas</h4>
                         {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
-                    <MyYumchas userCreatedYumcha={false} />
+                    <MyYumchas userCreatedYumcha={false} yumchas={yumchas} />
                     
                 </div>
             </main>

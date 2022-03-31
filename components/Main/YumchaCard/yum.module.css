@@ -28,9 +28,9 @@
     margin-right: 20px;
 }   
 
-.visible span:nth-child(2) {
+/* .visible span:nth-child(2) {
     margin-right: 10px;
-}
+} */
 
 .title {
     color: var(--lightGreen);
@@ -40,8 +40,9 @@
 .time {
     color: var(--lightGreen);
     font-size: 0.9em;
-    margin-right: 0.2em !important;
+    margin-right: 1em !important;
     font-weight: normal;
+    margin-left: auto;
 }
 
 .expandBtn {
