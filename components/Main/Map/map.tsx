@@ -110,6 +110,8 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
     )
 }
 
+
+
 type Props = {
     markerLocations: YumchaLocations[]
 }
@@ -122,12 +124,48 @@ const App = ({markerLocations}: Props) => {
     })
     const [click, setClick] = useState<google.maps.LatLng>()
 
+    useEffect(() => {
+        getPosition()
+    }, [])
+    
+    // if browser supports navigator.geolocaiton, generate lat/long
+    const getPosition = () => {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, posError)
+        } else {
+            return null
+        }
+    }
+
+    // Geolocation error callback function. Query permissions
+    const posError = () => {
+        if (navigator.permissions) {
+            navigator.permissions.query({name:"geolocation"}).then(res => {
+                if (res.state === "denied") {
+                    console.log("Enable location permissions for this website in your browser settings.")
+                    return null
+                }
+            })
+        } else {
+            console.log("Unable to access your location.")
+            return null
+        }
+    }
+
+    // Geolocation success callback function
+    const showPosition = (position: any) => {
+        let center: google.maps.LatLngLiteral  = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        }
+        setCenter(center)
+    }
+
     const onClick = (e: google.maps.MapMouseEvent) => {
         setClick(e.latLng!) // definitely setting latLng
     }
 
     const onIdle = (m: google.maps.Map) => {
-        console.log("onIdle")
         setZoom(m.getZoom()!)
         setCenter(m.getCenter()!.toJSON())
     }

@@ -30,10 +30,18 @@ const Home = () => {
     const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
 
     const profileRedirect = () => {
-        if (user === null) {
+        if (!userLoggedIn()) {
             NotSignedInAlert()
         } else {
             router.push("./auth/profile")   
+        }
+    }
+
+    const userLoggedIn = () => {
+        if (user === null) {
+            return false
+        } else {
+            return true
         }
     }
 
@@ -121,7 +129,7 @@ const Home = () => {
             </Head>
 
             <header>
-                <Navbar loggedIn={true} />
+                <Navbar loggedIn={userLoggedIn()} />
             </header>
 
             <main className={styles.main}>
@@ -135,7 +143,7 @@ const Home = () => {
                 </div>
 
                 <div>
-                    {/* <Map markerLocations={yumchasLatLong} /> */}
+                    <Map markerLocations={yumchasLatLong} />
                 </div>
 
                 <div className={styles.yumchaTitle}>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 // import { YumchaCardAvatar } from "../Avatar/Avatar"
 
 export interface YumchaProps {
-    id?: number;
+    id: number;
     inserted_at?: String;
     username: String;
     date: String;
@@ -19,14 +19,15 @@ export interface YumchaProps {
     sameGender?: Boolean;
     numPeopleJoin?: number;
     avatarUrl?: string;
-    creator?: String;
+    userCreatedYumcha: boolean;
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, creator} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha} : YumchaProps, ) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
     const [updatingDB, setUpdatingDB] = useState(false)
+    const [deletingDB, setDeletingDB] = useState(false)
 
     function ConfirmYumcha() {
         if (confirm("Join this yumcha?")) {
@@ -34,6 +35,69 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
             setUpdatingDB(true)
         }
     }
+
+    function EndYumcha() {
+        if  (confirm("End your yumcha?")) {
+            setDeletingDB(true)
+        }   
+    }
+
+    useEffect(() => {
+        
+        if(deletingDB) {
+            DeleteDB()
+        }
+    
+        return() => {
+            setDeletingDB(false)
+        }
+
+    }, [deletingDB])
+    
+
+    async function DeleteDB() {
+        try {
+            const {error} = await supabase
+                .from("yumcha-profiles")
+                .delete()
+                .match({yumchaID: id})
+
+            if (error) {
+                throw error
+            }
+        }
+        catch(error) {
+            console.error(error)
+        }
+
+        try {
+            const {data, error} = await supabase
+                .from("yumcha")
+                .delete()
+                .match({id: id})
+            
+            if(data) {
+                alert("Yumcha ended! Thank you.")
+            }
+
+            if (error) {
+                throw error
+            }
+        }
+        catch(error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        if(updatingDB) {
+            UpdateDB()
+        }
+
+        return () => {
+            setUpdatingDB(false)
+        }
+    }, [numPeopleYumcha])
 
     async function UpdateDB() {
         try {
@@ -53,23 +117,11 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
         }
         catch(error) {
             console.error(error)
-            alert("Error")
         }
         finally {
             setLoading(false)
         }
     }
-
-    useEffect(() => {
-        if(updatingDB) {
-            UpdateDB()
-        }
-
-        return () => {
-            setUpdatingDB(false)
-        }
-    }, [numPeopleYumcha])
-    
 
     const timeString = time
     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
@@ -114,8 +166,10 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <span className={styles.place}>{tempPlace}, {seat}</span>
                         </div>
 
-                        <button className={styles.join} onClick={ConfirmYumcha}>Join</button>
-                        {/* <span className={styles.join}><a href={whatsapp}>Chat</a></span> */}
+                        {userCreatedYumcha 
+                            ? <button className={styles.button} onClick={EndYumcha}>End</button>
+                            : <button className={styles.button} onClick={ConfirmYumcha}>Join</button>
+                        }
                     </div>
                 </div>
 
