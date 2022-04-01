@@ -1,4 +1,5 @@
 import { supabase } from "../../utils/supabaseClient";
+import imageCompression from "browser-image-compression";
 
 interface Props {
     url: string
@@ -33,6 +34,31 @@ export async function downloadImage(path: string, isMounted: boolean) {
     } 
 }
 
+export async function compressImage(file: File) {
+
+    console.log('originalFile instanceof Blob', file instanceof Blob); // true
+    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+    }
+
+    try {
+        const compressedFile = await imageCompression(file, options)
+        
+        console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+        return compressedFile
+        // await uploadToServer(compressedFile)
+    } 
+    catch (error: any) {
+        alert(error.message || error.description)
+    }
+}
+
 export async function uploadAvatar({event, setUploading, onUpload}: UploadProps) {
     try {
         setUploading(true)
@@ -47,18 +73,23 @@ export async function uploadAvatar({event, setUploading, onUpload}: UploadProps)
         const filePath = `${fileName}`
 
         // NEED TO LIMIT FILE SIZE OF UPLOADED IMAGES OR COMPRESS IT
+        let compressedFile = await compressImage(file)
+        if (!compressedFile) {
+            console.error("Compressed file returned null")
+            return null
+        }
         
         let {error: uploadError} = await supabase.storage
             .from("avatars")
-            .upload(filePath, file)
+            .upload(filePath, compressedFile)
         
         if (uploadError) {throw uploadError}
-        console.log("filePath: ",filePath)
+        // console.log("filePath: ",filePath)
 
-        if (onUpload) {onUpload(filePath)}
+        // if (onUpload) {onUpload(filePath)}
 
     } catch(error: any) {
-        alert(error.message)
+        alert(error.message || error.description)
     } finally {
         setUploading(false)
     }

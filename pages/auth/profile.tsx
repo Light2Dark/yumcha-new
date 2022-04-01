@@ -8,6 +8,8 @@ import buttonStyles from "../../components/Shared/button.module.css"
 // import Avatar from "../../components/Main/Avatar/Avatar";
 import Navbar from "../../components/Header/Navbar/Navbar";
 
+import { uploadAvatar } from "../api/setAvatar";
+
 export enum GenderEnum {
     female = "female",
     male = "male",
@@ -34,6 +36,7 @@ export interface FormProps {
 
 export default function Profile({session}: any) {
     const [loading, setLoading] = useState(false)
+    const [uploading, setUploading] = useState(false)
     const [avatarUrl, setAvatarUrl] = useState("")
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
@@ -70,11 +73,15 @@ export default function Profile({session}: any) {
         updateProfile(profile)
     });
 
-    const onUpload = (url: string) => {
-        if (url != "") {
-            setAvatarUrl(url)
-        }
-        updateProfile({avatarUrl: url})
+    // const onUpload = (url: string) => {
+    //     if (url != "") {
+    //         setAvatarUrl(url)
+    //     }
+    //     updateProfile({avatarUrl: url})
+    // }
+
+    const onUpload = (event: any) => {
+        uploadAvatar({event, setUploading, onUpload})
     }
 
     function signOut() {
@@ -162,6 +169,7 @@ export default function Profile({session}: any) {
             <div className={styles.formWidget}>
                 <form onSubmit={onSubmit}>
                     {/* <Avatar url={avatarUrl} onUpload={onUpload} size={100} /> */}
+                    <input className={styles.avatarInput} type="file" name="avatar" id="avatar" accept="image/*" onChange={onUpload} disabled={uploading} />
 
                     <div className={styles.twoLines}>
                         <label htmlFor="firstName">
