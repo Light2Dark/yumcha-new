@@ -37,12 +37,12 @@ const Home: NextPage = () => {
                   <p>Sign Up with Email</p>
                 </a>
             </Link>
-            <Link href="/">
+            {/* <Link href="/">
                 <a className={loginStyles.button} id={loginStyles.google}>
                   <Image src={googleLogo} alt="Google Logo"/>
                   <p>Sign in with Google</p>
                 </a>
-            </Link>
+            </Link> */}
           </div>
 
           <Link href="/home">
