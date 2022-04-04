@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../../../utils/supabaseClient"
-import { getAllYumchas } from "../../../pages/api/getYumchas"
-import Head from "next/head"
 
 import styles from "./styles.module.css"
 import { YumchaProps } from "../YumchaCard/yumchaCard"

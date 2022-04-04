@@ -48,7 +48,58 @@ const Avatar = ({url, size}: Props) => {
     
 }
 
+const HomeAvatar =() => {
+    const [avatarUrl, setAvatarUrl] = useState("")
+
+    useEffect(() => {
+        let isMounted = true
+        getProfile(isMounted)
+
+        return () => {
+            isMounted = false
+        }
+    }, [])
+
+    async function getProfile(isMounted: boolean) {
+        try {
+            const user = supabase.auth.user()
+
+            let {data, error, status} = await supabase
+                .from("profiles")
+                .select("avatarUrl")
+                .eq("id", user?.id)
+                .single()
+
+            if (error && status !== 406) {
+                throw error
+            }
+
+            if (data && isMounted) {
+                if (data.avatarUrl) {
+                    downloadImage(data.avatarUrl, isMounted, setAvatarUrl)
+                }
+                
+            }
+        } catch(error: any) {
+            alert(error.message || error.description)
+        }
+    }
+
+    return(
+        <>
+            <div className={styles.avatar}>
+                {avatarUrl ? (
+                    <Image src={avatarUrl} alt="Avatar" height={40} width={40} objectFit="cover" />
+                ) : (
+                    <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
+                )}
+            </div>
+        </>
+    )
+}
+
 export default Avatar
+export {HomeAvatar}
 
 // export default function Avatar({url, size, onUpload}: Props) {
 //     const [avatarUrl, setAvatarUrl] = useState("")

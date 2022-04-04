@@ -10,7 +10,7 @@ import styles from "../styles/home.module.css"
 import { supabase } from "../utils/supabaseClient"
 import { useState, useEffect } from "react"
 import MyYumchas from "../components/Main/MyYumchas/myYumchas"
-// import { HomeAvatar } from "../components/Main/Avatar/Avatar"
+import { HomeAvatar } from "../components/Main/Avatar/Avatar"
 
 import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
 import Map from "../components/Main/Map/map"
@@ -136,8 +136,7 @@ const Home = () => {
                 <div className={styles.topLine}>
                     <span className={styles.profile}>Edit your Profile</span>
                     <button className={styles.profileButton} onClick={profileRedirect}>
-                        {/* <HomeAvatar size={40} /> */}
-                        <Image src={userAvatar} alt="Your user profile" height={40} width={40} />
+                        <HomeAvatar />
                     </button>
                     
                 </div>
@@ -152,7 +151,7 @@ const Home = () => {
                         <h4>My Yumchas</h4> 
                         {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
-                    <MyYumchas userCreatedYumcha={true} yumchas={yumchas} />
+                    <MyYumchas userCreatedYumcha={true} yumchas={yumchas} /> 
 
                     <div className={styles.center}>
                         <span>Can't find any yumchas you like?</span>
