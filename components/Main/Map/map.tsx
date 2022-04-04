@@ -73,7 +73,7 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
             streetViewControl: false
           }))
       }
-    }, [ref, map]);
+    }, [ref, map, center, zoom]); // added zoom and center to dependencies
 
     useDeepCompareEffectForMaps(() => {
         if (map) {
@@ -126,7 +126,7 @@ const App = ({markerLocations}: Props) => {
 
     useEffect(() => {
         getPosition()
-    }, [])
+    })
     
     // if browser supports navigator.geolocaiton, generate lat/long
     const getPosition = () => {

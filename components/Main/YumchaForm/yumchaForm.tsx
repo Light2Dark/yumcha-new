@@ -35,7 +35,7 @@ const Form = ({setGeometry}: Props) => {
             setYumchaTableUpdated(false) // dk if this works
             isMounted = false
         }
-    }, [yumchaTableUpdated])
+    }, [yumchaTableUpdated, InsertYumchaProfiles])
 
     async function InsertYumchaProfiles() {
         // inserting into yumcha-profiles table

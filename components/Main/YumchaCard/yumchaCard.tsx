@@ -52,7 +52,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
             setDeletingDB(false)
         }
 
-    }, [deletingDB])
+    }, [deletingDB, DeleteDB])
     
 
     async function DeleteDB() {
@@ -97,7 +97,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
         return () => {
             setUpdatingDB(false)
         }
-    }, [numPeopleYumcha])
+    }, [numPeopleYumcha, updatingDB, UpdateDB])
 
     async function UpdateDB() {
         try {
