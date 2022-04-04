@@ -10,10 +10,10 @@ interface Props {
 interface UploadProps {
     event: any
     setUploading: (setUploadingState: boolean) => void
-    onUpload: (url: string) => void
+    handleUpload: (url: string) => void
 }
 
-export async function downloadImage(path: string, isMounted: boolean) {
+export async function downloadImage(path: string, isMounted: boolean, setAvatarUrl: (url: string) => void) {
     try {
         const {data, error} = await supabase.storage.from("avatars").download(path)
         if (error) {
@@ -26,11 +26,11 @@ export async function downloadImage(path: string, isMounted: boolean) {
         }
 
         if(isMounted) {
-            // setAvatarUrl(url)
+            setAvatarUrl(url)
         }
         
     } catch(error: any) {
-        alert("Error downloading image: " + error.message)
+        console.log("Error downloading image: " + error.message)
     } 
 }
 
@@ -59,7 +59,7 @@ export async function compressImage(file: File) {
     }
 }
 
-export async function uploadAvatar({event, setUploading, onUpload}: UploadProps) {
+export async function uploadAvatar({event, setUploading, handleUpload}: UploadProps) {
     try {
         setUploading(true)
 
@@ -84,9 +84,9 @@ export async function uploadAvatar({event, setUploading, onUpload}: UploadProps)
             .upload(filePath, compressedFile)
         
         if (uploadError) {throw uploadError}
-        // console.log("filePath: ",filePath)
+        console.log("filePath: ",filePath)
 
-        // if (onUpload) {onUpload(filePath)}
+        if (handleUpload) {handleUpload(filePath)}
 
     } catch(error: any) {
         alert(error.message || error.description)

@@ -4,9 +4,10 @@ import { supabase } from "../../../utils/supabaseClient"
 import Image from "next/image"
 import userAvatar from "../../../public/images/user.png"
 import userIcon from "../../../public/images/usercircle.svg"
+import {downloadImage} from "../../../pages/api/setAvatar"
 
 interface Props {
-    url?: string
+    url: string
     size: number
     onUpload?: (filePath: string) => void
 }
@@ -15,6 +16,39 @@ type YumchaCardProps = {
     url: string
     size: number
 }
+
+const Avatar = ({url, size}: Props) => {
+    const [avatarUrl, setAvatarUrl] = useState("")
+    const [uploading, setUploading] =  useState(false)
+
+    useEffect(() => {
+        let isMounted = true
+        
+        if (url != "") {
+            console.log("downloading", url)
+            downloadImage(url, isMounted, setAvatarUrl)
+        }
+    
+        return () => {
+            isMounted = false
+        }
+    }, [url])
+
+    return (
+        <>
+            <div className={styles.avatar}>
+                {avatarUrl ? (
+                    <Image src={avatarUrl} alt={"generic avatar of a person"} width={size} height={size} objectFit="cover" />
+                ) : (
+                    <Image src={userAvatar} alt={"generic avatar of a person"} width={size} height={size} objectFit="cover" />
+                )}
+            </div>
+        </>
+    )
+    
+}
+
+export default Avatar
 
 // export default function Avatar({url, size, onUpload}: Props) {
 //     const [avatarUrl, setAvatarUrl] = useState("")
