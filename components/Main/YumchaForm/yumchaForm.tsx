@@ -1,7 +1,7 @@
 import styles from "./form.module.css"
 import Image from "next/image"
 import locationPic from "../../../public/logos/choosePlace.svg"
-import { YumchaProps } from "../YumchaCard/yumchaCard"
+// import { YumchaProps } from "../YumchaCard/yumchaCard"
 import { useState, useEffect } from "react"
 import { supabase } from "../../../utils/supabaseClient"
 import Router, { useRouter } from "next/router"
@@ -85,14 +85,14 @@ const Form = ({setGeometry}: Props) => {
             return
         }
 
-        const Yumcha: YumchaProps = {
+        const Yumcha = {
             username: event.target.name.value,
             description: event.target.description.value,
             time: event.target.time.value,
             date: event.target.date.value,
             latLong: selectedPlaceLatLong,
             seat: event.target.seatLocation.value,
-            yumchaName: event.target.yumchaName.value
+            yumchaName: event.target.yumchaName.value,
             // sameGender: event.target.sameGender.value
         }
 
