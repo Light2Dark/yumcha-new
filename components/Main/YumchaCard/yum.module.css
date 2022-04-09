@@ -91,13 +91,13 @@
     margin-left: auto;
     margin-right: 5px;
     text-decoration: none;
-    color: var(--lightGreen);
+    color: black;
     font-size: 1em;
     padding: 0px 8px 0px 6px;
-    font-weight: bold;
-    border: 1px solid white;
+    font-weight: 500;
+    /* border: 1px solid white; */
     border-radius: 10px;
-    background-color: var(--darkBlue);
+    background-color: var(--lightGrey);
 }
 
 .midText {

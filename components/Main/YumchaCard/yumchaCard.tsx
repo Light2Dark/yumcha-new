@@ -4,6 +4,7 @@ import userIcon from "../../../public/images/usercircle.svg"
 import { supabase } from "../../../utils/supabaseClient"
 import { useEffect, useState } from "react"
 // import { YumchaCardAvatar } from "../Avatar/Avatar"
+import { getAllYumchaIds, getStaticPaths } from "../../../pages/yumchas/[yumchaID]"
 
 export interface YumchaProps {
     id: number;
@@ -42,6 +43,11 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
         }   
     }
 
+    async function GoToYumchaPage() {
+        let x = await getStaticPaths()
+        console.log(x)
+    } // how to route to that page while passing in yumchaID
+
     useEffect(() => {
         
         if(deletingDB) {
@@ -66,8 +72,8 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                 throw error
             }
         }
-        catch(error) {
-            console.error(error)
+        catch(error: any) {
+            console.error(error.message || error.description)
         }
 
         try {
@@ -84,8 +90,8 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                 throw error
             }
         }
-        catch(error) {
-            console.error(error)
+        catch(error: any) {
+            console.error(error.message || error.description)
         }
     }
 
@@ -115,8 +121,8 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                 throw error
             }
         }
-        catch(error) {
-            console.error(error)
+        catch(error: any) {
+            console.error(error.message || error.description)
         }
         finally {
             setLoading(false)
@@ -170,6 +176,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             ? <button className={styles.button} onClick={EndYumcha}>End</button>
                             : <button className={styles.button} onClick={ConfirmYumcha}>Join</button>
                         }
+                        {/* <button className={styles.button} onClick={GoToYumchaPage}>View</button> */}
                     </div>
                 </div>
 

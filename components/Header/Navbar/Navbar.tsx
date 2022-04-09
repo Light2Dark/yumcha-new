@@ -7,10 +7,10 @@ type Props = {
 
 export default function Navbar({loggedIn}: Props) {
 
-    let link = "/"
-    if (loggedIn) {
-        link = "/home"
-    }
+    let link = "/home"
+    if (!loggedIn) {
+        link = "/"
+    } 
 
     return (
         <div className={styles.container}>

@@ -65,15 +65,20 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
     const [map, setMap] = useState<google.maps.Map>()
 
     useEffect(() => {
-      if(ref.current && !map) {
-          setMap(new window.google.maps.Map(ref.current, {
-            center: center,
-            zoom: zoom,
-            mapTypeControl: false,
-            streetViewControl: false
-          }))
-      }
-    }, [ref, map, center, zoom]); // added zoom and center to dependencies
+        if(ref.current && !map && google) {
+            setMap(new window.google.maps.Map(ref.current, {
+                center: center,
+                zoom: zoom,
+                mapTypeControl: false,
+                streetViewControl: false
+            }))
+        }
+  
+    }, [ref, map]);
+
+    function InitializeMap() {
+
+    }
 
     useDeepCompareEffectForMaps(() => {
         if (map) {
@@ -171,8 +176,8 @@ const App = ({markerLocations}: Props) => {
     }
 
     return(
-        <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-
+        <Wrapper apiKey={process.env.NEXT_PUBLIC_MAPS_API || ""}>
+            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
             {markerLocations.map((location) => {
 
                 if (location.latLong) {
@@ -186,7 +191,9 @@ const App = ({markerLocations}: Props) => {
                 }
             })}
             
-        </Map>
+            </Map>
+        </Wrapper>
+
     )
 }
 

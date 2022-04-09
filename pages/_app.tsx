@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`}
       ></script> */}
 
-      <Script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`} type="text/javascript" />
+      {/* <Script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`} type="text/javascript" /> */}
 
         <Component {...pageProps} />
     </>
