@@ -3,8 +3,8 @@ import Image from "next/image"
 import userIcon from "../../../public/images/usercircle.svg"
 import { supabase } from "../../../utils/supabaseClient"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 // import { YumchaCardAvatar } from "../Avatar/Avatar"
-import { getAllYumchaIds, getStaticPaths } from "../../../pages/yumchas/[yumchaID]"
 
 export interface YumchaProps {
     id: number;
@@ -44,8 +44,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
     }
 
     async function GoToYumchaPage() {
-        let x = await getStaticPaths()
-        console.log(x)
+        
     } // how to route to that page while passing in yumchaID
 
     useEffect(() => {
@@ -172,11 +171,14 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <span className={styles.place}>{tempPlace}, {seat}</span>
                         </div>
 
-                        {userCreatedYumcha 
+                        {/* {userCreatedYumcha 
                             ? <button className={styles.button} onClick={EndYumcha}>End</button>
                             : <button className={styles.button} onClick={ConfirmYumcha}>Join</button>
-                        }
-                        {/* <button className={styles.button} onClick={GoToYumchaPage}>View</button> */}
+                        } */}
+                        <Link href={"/yumchas/" + id} passHref>
+                            <button className={styles.button}>View</button>
+                        </Link>
+                        
                     </div>
                 </div>
 

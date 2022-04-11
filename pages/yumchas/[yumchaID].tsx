@@ -5,8 +5,11 @@ import Head from "next/head"
 import Navbar from "../../components/Header/Navbar/Navbar"
 import YumchaExpanded from "../../components/Main/YumchaPage/yumchaExpanded"
 import { supabase } from "../../utils/supabaseClient"
+import { getAllYumchaIds, getYumchaData } from "../api/yumchaExpanded"
 
-const Yumcha = () => {
+const Yumcha = ({yumcha}: any) => {
+
+    console.log(yumcha)
     return(
         <>
             <Head>
@@ -26,42 +29,27 @@ const Yumcha = () => {
     )
 }
 
-export async function getAllYumchaIds() {
-    try {
-        const {data, error, status} = await supabase
-            .from("yumcha")
-            .select("id")
+// export async function getStaticPaths() {
+//     // returns list of possible yumchaID's
+//     const paths = await getAllYumchaIds()
+//     return {
+//         paths,
+//         fallback: false
+//     }
+// }
 
-        if (error && status !== 406) {
-            throw error
-        }
+// // this function will run X times, where X is the number of pages / yumchas
+// export const getStaticProps = async (context: any) => {
+//     const id = context.params.yumchaID
+//     const response = await getYumchaData(id)
+//     const data = JSON.stringify(response)
+//     return {
+//         props: {yumcha: data}
+//     }
+// }
 
-        if (data) {
-            data.map(id => {
-                return {
-                    params: {
-                        id: id
-                    }
-                }
-            })
-        }
-    }
-    catch(error: any) {
-        console.error(error)
-    }
-}
-
-export async function getStaticPaths() {
-    // returns list of possible yumchaID's
-    const paths = await getAllYumchaIds()
-    return {
-        paths,
-        fallback: false
-    }
-}
-
-export async function getStaticProps({params}: any) {
-    // fetch data for the yumcha page using params.id
-}
+// export async function getStaticProps({params}: any) {
+//     // fetch data for the yumcha page using params.id
+// }
 
 export default Yumcha

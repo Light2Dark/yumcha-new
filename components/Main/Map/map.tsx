@@ -171,8 +171,8 @@ const App = ({markerLocations}: Props) => {
     }
 
     const onIdle = (m: google.maps.Map) => {
-        setZoom(m.getZoom()!)
-        setCenter(m.getCenter()!.toJSON())
+        // setZoom(m.getZoom()!)
+        // setCenter(m.getCenter()!.toJSON())
     }
 
     return(

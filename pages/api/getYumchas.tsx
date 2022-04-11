@@ -1,12 +1,14 @@
+import path from "path";
 import { supabase } from "../../utils/supabaseClient"
 
 type Props = {
     isMounted: boolean
     setLoading: (loadingState: boolean) => void;
     setData : any
+    getIDs?: boolean
 }
 
-export async function getAllYumchas({isMounted, setLoading, setData}: Props) {
+export async function getAllYumchas({isMounted, setLoading, setData, getIDs}: Props) {
     try {
         setLoading(true)
 
@@ -43,11 +45,6 @@ export async function getAllYumchas({isMounted, setLoading, setData}: Props) {
 
         if (data && isMounted) {
             setData(data)
-            // return {
-            //     props : {
-            //         data
-            //     }
-            // }
         }
 
     } catch(error: any) {
@@ -56,3 +53,14 @@ export async function getAllYumchas({isMounted, setLoading, setData}: Props) {
         setLoading(false)
     }
 }
+
+// To be used by yumcha page
+// function getYumchaIDs({yumchas}: any) {
+//     return yumchas.map(yumcha => {
+//         return {
+//             params: {
+//                 yumchaID: yumcha.yumcha.id
+//             }
+//         }
+//     })
+// }
