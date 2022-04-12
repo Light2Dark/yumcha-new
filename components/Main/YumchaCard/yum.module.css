@@ -1,7 +1,6 @@
 .twoCards {
     display: flex;
     flex-direction: column;
-    width: 90%;
 }
 
 .f2fyumcha {
@@ -29,9 +28,9 @@
     margin-right: 20px;
 }   
 
-.visible span:nth-child(2) {
+/* .visible span:nth-child(2) {
     margin-right: 10px;
-}
+} */
 
 .title {
     color: var(--lightGreen);
@@ -41,8 +40,9 @@
 .time {
     color: var(--lightGreen);
     font-size: 0.9em;
-    margin-right: 0.2em !important;
+    margin-right: 1em !important;
     font-weight: normal;
+    margin-left: auto;
 }
 
 .expandBtn {
@@ -87,16 +87,17 @@
     font-weight: bold;
 }
 
-.join {
+.button {
     margin-left: auto;
     margin-right: 5px;
     text-decoration: none;
-    color: var(--lightGreen);
+    color: black;
     font-size: 1em;
     padding: 0px 8px 0px 6px;
-    font-weight: bold;
-    border: none;
-    background-color: var(--darkBlue);
+    font-weight: 500;
+    /* border: 1px solid white; */
+    border-radius: 10px;
+    background-color: var(--lightGrey);
 }
 
 .midText {

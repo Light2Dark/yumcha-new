@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
 import Link from "next/link"
 import Head from 'next/head'
-import Navbar from '../components/Header/Navbar/Navbar'
+import Image from 'next/image'
 
 import mainStyles from "../styles/main.module.css"
+import loginStyles from "../styles/login.module.css"
+
+// import googleLogo from "../public/logos/google/signin-assets/google_signin_buttons/web/vector/btn_google_light_normal_ios.svg"
+import emailLogo from "../public/logos/carbon_email.svg"
+import pencil from "../public/logos/bx_pencil.svg"
 
 const Home: NextPage = () => {  
   return (
@@ -14,13 +19,40 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <Navbar />
-      </header>
-
       <main className={mainStyles.fullImage}>
-        <h1 className={mainStyles.mainText}>Wanna yumcha but no one’s free? Yumcha with new people lah!</h1>
-        <div className={mainStyles.mainBtnDiv}>
+        <div className={mainStyles.yumchaBox}>
+          <h1 className={mainStyles.yumcha}>Yumcha</h1>
+          <h2 className={mainStyles.mainText}>Have lunch with new people lah!</h2>
+
+          <div className={loginStyles.loginButtonsDiv}>
+            <Link href="/auth/sign-in" passHref>
+                <a className={loginStyles.button} id = {loginStyles.email}>
+                  <Image src={emailLogo} alt="Email Logo" height={25} width={25} />
+                  <p>Log in with Email</p>
+                </a>
+            </Link>
+            <Link href="/auth/sign-up" passHref>
+                <a className={loginStyles.button} id = {loginStyles.email}>
+                  <Image src={pencil} alt="Email Logo" height={25} width={25} />
+                  <p>Sign Up with Email</p>
+                </a>
+            </Link>
+            {/* <Link href="/" passHref>
+                <a className={loginStyles.button} id={loginStyles.google}>
+                  <Image src={googleLogo} alt="Google Logo"/>
+                  <p>Sign in with Google</p>
+                </a>
+            </Link> */}
+          </div>
+
+          <Link href="/home" passHref>
+            <p className={loginStyles.try}><a>Try first</a></p>
+          </Link>
+        
+
+        </div>
+
+        {/* <div className={mainStyles.mainBtnDiv}>
           <Link href="/yumchaNow">
             <a>Yumcha Now</a>
           </Link>
@@ -30,7 +62,7 @@ const Home: NextPage = () => {
           <Link href="/virtualYumcha">
             <a>Virtual Yumcha</a>
           </Link>
-        </div>
+        </div> */}
       </main>
 
       <footer>

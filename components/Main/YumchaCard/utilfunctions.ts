@@ -1,5 +1,0 @@
-function Def() {
-
-}
-
-export {Def}

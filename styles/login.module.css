@@ -1,0 +1,97 @@
+.loginButtonsDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    margin-top: 3em;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    gap: 0.5em;
+    background-color: white;
+    padding: 0 0.9em 0 0.3em;
+    border-radius: 15px;
+    height: 48px;
+    font-weight: 600;
+    font-size: 1.2em;
+    color:rgb(61, 61, 61);
+}
+
+#email {
+    padding-left: 15px;
+}
+
+#email { 
+    gap: 1.2em;
+}
+
+#google p {
+    display: inline;
+}
+
+.try {
+    text-decoration: underline;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: rgb(241, 237, 237);
+}
+
+.try:visited {
+    color: rgb(77, 77, 255);
+}
+
+.try:active {
+    color: rgb(77, 77, 255);
+}
+
+#yumcha {
+    width: 50%;
+    padding: 0;
+    font-size: 2.5em;
+    text-align: center;
+    margin: auto;
+    margin-top: 2em;
+}
+
+.mainDiv {
+    margin: 0 1em 0 1em;
+}
+
+.h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.3em;
+    gap: 0.2em;
+}
+
+.flex label {
+    font-size: 1.3em;
+    font-weight: 400;
+}
+
+.flex input {
+    width: 70%;
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    color: black;
+    font-size: 1.2em;
+    height: 2em;
+}
+
+.signUp {
+    font-size: 1.3em;
+    margin-top: 0.7em;
+    background-color: var(--darkBlue);
+    color: var(--lightGreen);
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+}
