@@ -2,39 +2,44 @@ import styles from "./styles.module.css"
 
 const YumchaExpanded = () => {
     return(
-        <div>
-            <p>Dinner</p>
-            <div>
-                <p>Yo! Let's meet and have some good food at a place nearby</p>
-                <div>
-                    <div>AvatarPic</div>
-                    <p>Adam</p>
+        <div className={styles.expandedCard}>
+            <span className={styles.heading}>Dinner</span>
+
+            <div className={`${styles.flex} ${styles.mainDiv}`}>
+                <p className={styles.mainText}>Yo! Let's meet and have some good food at a place nearby</p>
+                <div className={styles.profileFlex}>
+                    <div className={styles.mainAvatar}></div>
+                    <span className={styles.name}>Adam</span>
                 </div>
-                
             </div>
 
             <div>
-                <p>People Joining</p>
+                <p className={styles.subheading}>People Joining</p>
 
-                <div>
-                    <div>
-                        <div>AvatarPic</div>
-                        <p>Ben</p>
+                <div className={styles.people}>
+
+                    <div className={styles.flex}>
+                        <div className={styles.profileFlex}>
+                            <div className={styles.otherAvatar}></div>
+                            <span className={styles.otherName}>Ben</span>
+                        </div>
+                        <span>Hi! I'm Ben and I like popcorn and lollipops.</span>
                     </div>
-                    <p>Hi! I'm Ben and I like popcorn and lollipops.</p>
-                </div>
 
-                <div>
-                    <div>
-                        <div>AvatarPic</div>
-                        <p>Ben</p>
+                    <div className={styles.flex}>
+                        <div className={styles.profileFlex}>
+                            <div className={styles.otherAvatar}></div>
+                            <span className={styles.otherName}>Ben</span>
+                        </div>
+                        <span>Hi! I'm Ben and I like popcorn and lollipops.</span>
                     </div>
-                    <p>Hi! I'm Ben and I like popcorn and lollipops.</p>
-                </div>
 
+                </div>
             </div>
 
-            <button>Join / End</button>
+            <div className={styles.center}>
+                <button className={styles.button}>Join / End</button>
+            </div>
         </div>
     )
 }

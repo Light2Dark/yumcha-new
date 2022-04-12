@@ -1,0 +1,84 @@
+.expandedCard {
+    width: 86%;
+    margin: 3em auto 0 auto;
+    background-color: var(--darkBlue);
+    padding: 15px 25px 15px 25px;
+    color: white;
+    border-radius: 15px;
+}
+
+.heading {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--lightGreen);
+}
+
+.subheading {
+    color: var(--lightGreen);
+    font-weight: 400;
+    font-size: 1.1em;
+    margin: 0.2em 0 0.6em;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.profileFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.people {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mainText {
+    font-size: 1.1em;
+}
+
+.mainDiv {
+    margin-bottom: 0.3em;
+}
+
+.mainAvatar {
+    height: 40px;
+    width: 40px;
+    background-color: azure;
+}
+
+.otherAvatar {
+    height: 30px;
+    width: 30px;
+    background-color: azure;
+}
+
+.name {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.otherName {
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.button {
+    background-color: var(--lightGrey);
+    color: var(--darkBlue);
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1em;
+}
