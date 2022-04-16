@@ -18,9 +18,10 @@ type ProfileProps = {
 type Props = {
     userCreatedYumcha: Boolean
     yumchas: Yumchas[]
+    isProfileSet: boolean
 }
 
-const MyYumchas = ({userCreatedYumcha, yumchas}: Props) => {
+const MyYumchas = ({userCreatedYumcha, yumchas, isProfileSet}: Props) => {
     const user = supabase.auth.user()
 
     if (yumchas.length == 0) {
@@ -43,7 +44,7 @@ const MyYumchas = ({userCreatedYumcha, yumchas}: Props) => {
                 yumchas.map(yumchaData => {
                     if (user.id == yumchaData.profiles.id) {
                         return(
-                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={true} id={yumchaData.yumcha.id}  />
+                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={true} id={yumchaData.yumcha.id} isProfileSet = {isProfileSet}  />
                         )
                     }
                 })
@@ -54,7 +55,7 @@ const MyYumchas = ({userCreatedYumcha, yumchas}: Props) => {
                 yumchas.map(yumchaData => {
                     if (user.id != yumchaData.profiles.id) {
                         return(
-                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={false} id={yumchaData.yumcha.id} />
+                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={false} id={yumchaData.yumcha.id} isProfileSet = {isProfileSet} />
                         )
                     }
                 })

@@ -4,6 +4,7 @@ import userIcon from "../../../public/images/usercircle.svg"
 import { supabase } from "../../../utils/supabaseClient"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 // import { YumchaCardAvatar } from "../Avatar/Avatar"
 
 export interface YumchaProps {
@@ -21,14 +22,16 @@ export interface YumchaProps {
     numPeopleJoin?: number;
     avatarUrl?: string;
     userCreatedYumcha: boolean;
+    isProfileSet?: boolean
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha} : YumchaProps, ) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha, isProfileSet} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
     const [updatingDB, setUpdatingDB] = useState(false)
     const [deletingDB, setDeletingDB] = useState(false)
+    const router = useRouter()
 
     function ConfirmYumcha() {
         if (confirm("Join this yumcha?")) {
@@ -43,9 +46,17 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
         }   
     }
 
-    async function GoToYumchaPage() {
-        
-    } // how to route to that page while passing in yumchaID
+    function GoToYumchaPage(id: number) {
+        // check whether user has profile
+        if (isProfileSet) {
+            // redirect to yumcha page
+            const link = "/yumchas/" + id
+            router.push(link)
+        } else if (isProfileSet === false) {
+            alert("Set up your profile first!")
+            router.push("./auth/profile")
+        }
+    } 
 
     useEffect(() => {
         
@@ -175,9 +186,11 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             ? <button className={styles.button} onClick={EndYumcha}>End</button>
                             : <button className={styles.button} onClick={ConfirmYumcha}>Join</button>
                         } */}
-                        <Link href={"/yumchas/" + id} passHref>
+
+                        {/* <Link href={"/yumchas/" + id} passHref>
                             <button className={styles.button}>View</button>
-                        </Link>
+                        </Link> */}
+                        <button className={styles.button} onClick={() => {GoToYumchaPage(id)}}>View</button>
                         
                     </div>
                 </div>

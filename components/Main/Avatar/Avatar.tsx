@@ -63,6 +63,9 @@ const HomeAvatar =() => {
     async function getProfile(isMounted: boolean) {
         try {
             const user = supabase.auth.user()
+            if (user === null) {
+                return
+            }
 
             let {data, error, status} = await supabase
                 .from("profiles")

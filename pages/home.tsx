@@ -15,6 +15,7 @@ import { HomeAvatar } from "../components/Main/Avatar/Avatar"
 import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
 import Map from "../components/Main/Map/map"
 import { getAllYumchas } from "./api/getYumchas"
+import { checkProfile } from "./auth/checkProfile"
 
 export interface YumchaLocations {
     id: number
@@ -26,6 +27,7 @@ const Home = () => {
     const user = supabase.auth.user()
 
     const [loading, setLoading] = useState(false)
+    const [isProfileSet, setIsProfileSet] = useState(false)
     const [yumchas, setYumchas] = useState<Array<Yumchas>>([])
     const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
 
@@ -58,14 +60,28 @@ const Home = () => {
             router.push("./planYumcha")   
         }
     }
+
+    // check whether profile has been set
+    useEffect(() => {
+        let isMounted = true
+        
+        if (user != null) {
+            checkProfile({isMounted, setIsProfileSet, user})
+        }
+
+        return () => {
+            isMounted = false
+        }
+    }, [])
+    
         
     useEffect(() => {
-      let isMounted = true
-      getAllYumchas({isMounted, setLoading, setData: setYumchas})
-    
-      return () => {
-        isMounted = false
-      }
+        let isMounted = true
+        getAllYumchas({isMounted, setLoading, setData: setYumchas})
+        
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     useEffect(() => {
@@ -151,7 +167,7 @@ const Home = () => {
                         <h4>My Yumchas</h4> 
                         {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
-                    <MyYumchas userCreatedYumcha={true} yumchas={yumchas} /> 
+                    <MyYumchas userCreatedYumcha={true} yumchas={yumchas} isProfileSet = {isProfileSet} /> 
 
                     <div className={styles.center}>
                         <span>Can't find any yumchas you like?</span>
@@ -162,7 +178,7 @@ const Home = () => {
                         <h4>Nearby Yumchas</h4>
                         {/* <button>Refresh (&nbsp;)</button> */}
                     </div>
-                    <MyYumchas userCreatedYumcha={false} yumchas={yumchas} />
+                    <MyYumchas userCreatedYumcha={false} yumchas={yumchas} isProfileSet = {isProfileSet} />
                     
                 </div>
             </main>

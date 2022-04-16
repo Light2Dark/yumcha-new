@@ -1,15 +1,112 @@
 import styles from "./styles.module.css"
+import Image from "next/image"
+import { getDateInString, getTimeInString } from "../../../utils/usefulFuncs"
 
-const YumchaExpanded = () => {
+interface Profile {
+    id: string
+    firstName: string
+    avatarUrl: string
+    bio: string
+    gender: string
+}
+
+// interface Yumcha {
+//     id: number
+//     username: string
+//     seat: string
+//     date: string
+//     time: string
+//     yumchaName: string
+//     description: string
+//     sameGender: boolean
+//     tempPlace?: string
+//     numPeopleJoin?: number
+//     latLong: string
+// }
+
+interface YumchaProfile {
+    yumchaID: string
+    userID: string
+    creator: boolean
+}
+
+interface YumchaData {
+    id: number
+    username: string
+    seat: string
+    date: string
+    time: string
+    yumchaName: string
+    description: string
+    sameGender: boolean
+    tempPlace?: string
+    numPeopleJoin?: number
+    latLong: string
+
+    'yumcha-profiles': YumchaProfile[]
+    profiles: Profile[]
+}
+
+export interface YumchaDataProps {
+    yumchaData: YumchaData[]
+}
+
+// {id: 1, username: 'Shahmir', seat: 'Near library', date: '2022-02-08', time: '20:37:45', …}
+// date: "2022-02-08"
+// description: "Enjoy meeting new people!"
+// id: 1
+// latLong: null
+// numPeopleJoin: 161
+// profiles: [{…}]
+// sameGender: false
+// seat: "Near library"
+// tempPlace: "Uni Foyer"
+// time: "20:37:45"
+// username: "Shahmir"
+// yumcha-profiles: [{…}]
+// yumchaName: "Sample Yumcha Title"
+
+const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
+    // const yumcha = {
+    //     id: yumchaData[0].id,
+    //     title: yumchaData[0].yumchaName,
+    //     date: yumchaData[0].date,
+    //     description: yumchaData[0].description,
+    //     latLong: yumchaData[0].
+    // }
+    const yumcha: YumchaData = yumchaData[0]
+    console.log(yumchaData)
+
+    const timeString = getTimeInString(yumcha.time)
+    const dateString = getDateInString(yumcha.date)
+
     return(
         <div className={styles.expandedCard}>
-            <span className={styles.heading}>Dinner</span>
+            <span className={styles.heading}>{yumcha.yumchaName}</span>
 
             <div className={`${styles.flex} ${styles.mainDiv}`}>
-                <p className={styles.mainText}>Yo! Let's meet and have some good food at a place nearby</p>
+                <p className={styles.mainText}>{yumcha.description}</p>
                 <div className={styles.profileFlex}>
                     <div className={styles.mainAvatar}></div>
-                    <span className={styles.name}>Adam</span>
+                    <span className={styles.name}>{yumcha.username}</span>
+                    {/* Can probs change this in future, not to use username but profile name of creator */}
+                </div>
+            </div>
+
+            <div className = {styles.logos}>
+                <div>
+                    <Image src="/logos/time.svg" alt="logo of a clock" height={25} width={25} />
+                    <span>{timeString}</span>
+                </div>
+                
+                <div>
+                    <Image src="/logos/calendar.svg" alt="logo of a calendar" height={25} width={25} />
+                    <span>{dateString}</span>
+                </div>
+                
+                <div>
+                    <Image src="/logos/marker.svg" alt = "Logo of a marker" height={25} width={25} />
+                    <span>{yumcha.tempPlace}</span>
                 </div>
             </div>
 
@@ -18,7 +115,16 @@ const YumchaExpanded = () => {
 
                 <div className={styles.people}>
 
-                    <div className={styles.flex}>
+                    {yumcha.profiles.map(person => {
+                        // make sure creator is not in list
+                        if (yumcha["yumcha-profiles"][0].creator) {
+                            return null
+                        }
+                        return(
+                            <PersonJoin id = {person.id} avatarUrl={person.avatarUrl} bio={person.bio} firstName={person.firstName} gender={person.gender} key={person.id} />
+                        )
+                    })}
+                    {/* <div className={styles.flex}>
                         <div className={styles.profileFlex}>
                             <div className={styles.otherAvatar}></div>
                             <span className={styles.otherName}>Ben</span>
@@ -32,7 +138,7 @@ const YumchaExpanded = () => {
                             <span className={styles.otherName}>Ben</span>
                         </div>
                         <span>Hi! I'm Ben and I like popcorn and lollipops.</span>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
@@ -40,6 +146,18 @@ const YumchaExpanded = () => {
             <div className={styles.center}>
                 <button className={styles.button}>Join / End</button>
             </div>
+        </div>
+    )
+}
+
+const PersonJoin = ({id, firstName, avatarUrl, bio, gender}: Profile) => {
+    return(
+        <div className={styles.flex}>
+            <div className={styles.profileFlex}>
+                <div className={styles.otherAvatar}></div>
+                <span className={styles.otherName}>{firstName}</span>
+            </div>
+            <span>{bio}</span>
         </div>
     )
 }

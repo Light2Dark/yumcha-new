@@ -6,10 +6,10 @@ import Navbar from "../../components/Header/Navbar/Navbar"
 import YumchaExpanded from "../../components/Main/YumchaPage/yumchaExpanded"
 import { supabase } from "../../utils/supabaseClient"
 import { getAllYumchaIds, getYumchaData } from "../api/yumchaExpanded"
+import { YumchaDataProps } from "../../components/Main/YumchaPage/yumchaExpanded"
 
 const Yumcha = ({yumcha}: any) => {
 
-    console.log(yumcha)
     return(
         <>
             <Head>
@@ -23,30 +23,31 @@ const Yumcha = ({yumcha}: any) => {
             </header>
 
             <main>
-                <YumchaExpanded />
+                <YumchaExpanded yumchaData={yumcha} />
             </main>
         </>
     )
 }
 
-// export async function getStaticPaths() {
-//     // returns list of possible yumchaID's
-//     const paths = await getAllYumchaIds()
-//     return {
-//         paths,
-//         fallback: false
-//     }
-// }
+export async function getStaticPaths() {
+    // returns list of possible yumchaID's
+    const paths = await getAllYumchaIds()
+    return {
+        paths,
+        fallback: false
+    }
+}
 
-// // this function will run X times, where X is the number of pages / yumchas
-// export const getStaticProps = async (context: any) => {
-//     const id = context.params.yumchaID
-//     const response = await getYumchaData(id)
-//     const data = JSON.stringify(response)
-//     return {
-//         props: {yumcha: data}
-//     }
-// }
+// this function will run X times, where X is the number of pages / yumchas
+export const getStaticProps = async (context: any) => {
+    const id = context.params.yumchaID
+    const response = await getYumchaData(id)
+    // const data = JSON.stringify(response)
+    const data = response
+    return {
+        props: {yumcha: data}
+    }
+}
 
 // export async function getStaticProps({params}: any) {
 //     // fetch data for the yumcha page using params.id

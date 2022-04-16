@@ -177,7 +177,7 @@ const App = ({markerLocations}: Props) => {
 
     return(
         <Wrapper apiKey={process.env.NEXT_PUBLIC_MAPS_API || ""}>
-            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
+            {/* <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
             {markerLocations.map((location) => {
 
                 if (location.latLong) {
@@ -191,7 +191,7 @@ const App = ({markerLocations}: Props) => {
                 }
             })}
             
-            </Map>
+            </Map> */}
         </Wrapper>
 
     )
