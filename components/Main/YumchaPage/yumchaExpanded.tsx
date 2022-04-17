@@ -67,18 +67,20 @@ export interface YumchaDataProps {
 // yumchaName: "Sample Yumcha Title"
 
 const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
-    // const yumcha = {
-    //     id: yumchaData[0].id,
-    //     title: yumchaData[0].yumchaName,
-    //     date: yumchaData[0].date,
-    //     description: yumchaData[0].description,
-    //     latLong: yumchaData[0].
-    // }
     const yumcha: YumchaData = yumchaData[0]
     console.log(yumchaData)
 
     const timeString = getTimeInString(yumcha.time)
     const dateString = getDateInString(yumcha.date)
+
+    let creator = {}
+    let creatorID = ""
+    yumcha["yumcha-profiles"].map(yumchaProfile => {
+        if (yumchaProfile.creator === true) {
+            creator = yumchaProfile
+            creatorID = yumchaProfile.userID
+        }
+    })
 
     return(
         <div className={styles.expandedCard}>
@@ -116,29 +118,14 @@ const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
                 <div className={styles.people}>
 
                     {yumcha.profiles.map(person => {
-                        // make sure creator is not in list
-                        if (yumcha["yumcha-profiles"][0].creator) {
+                        if (creatorID === person.id) {
                             return null
                         }
+
                         return(
                             <PersonJoin id = {person.id} avatarUrl={person.avatarUrl} bio={person.bio} firstName={person.firstName} gender={person.gender} key={person.id} />
                         )
                     })}
-                    {/* <div className={styles.flex}>
-                        <div className={styles.profileFlex}>
-                            <div className={styles.otherAvatar}></div>
-                            <span className={styles.otherName}>Ben</span>
-                        </div>
-                        <span>Hi! I'm Ben and I like popcorn and lollipops.</span>
-                    </div>
-
-                    <div className={styles.flex}>
-                        <div className={styles.profileFlex}>
-                            <div className={styles.otherAvatar}></div>
-                            <span className={styles.otherName}>Ben</span>
-                        </div>
-                        <span>Hi! I'm Ben and I like popcorn and lollipops.</span>
-                    </div> */}
 
                 </div>
             </div>
