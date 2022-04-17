@@ -47,15 +47,13 @@
 }
 
 .mainAvatar {
-    height: 40px;
-    width: 40px;
-    background-color: azure;
+    height: 50px;
+    width: 50px;
 }
 
 .otherAvatar {
-    height: 30px;
-    width: 30px;
-    background-color: azure;
+    height: 40px;
+    width: 40px;
 }
 
 .name {

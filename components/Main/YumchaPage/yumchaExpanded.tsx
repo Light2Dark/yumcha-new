@@ -1,6 +1,7 @@
 import styles from "./styles.module.css"
 import Image from "next/image"
 import { getDateInString, getTimeInString } from "../../../utils/usefulFuncs"
+import Avatar from "../Avatar/Avatar"
 
 interface Profile {
     id: string
@@ -10,21 +11,7 @@ interface Profile {
     gender: string
 }
 
-// interface Yumcha {
-//     id: number
-//     username: string
-//     seat: string
-//     date: string
-//     time: string
-//     yumchaName: string
-//     description: string
-//     sameGender: boolean
-//     tempPlace?: string
-//     numPeopleJoin?: number
-//     latLong: string
-// }
-
-interface YumchaProfile {
+export interface YumchaProfile {
     yumchaID: string
     userID: string
     creator: boolean
@@ -68,17 +55,23 @@ export interface YumchaDataProps {
 
 const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
     const yumcha: YumchaData = yumchaData[0]
-    console.log(yumchaData)
 
     const timeString = getTimeInString(yumcha.time)
     const dateString = getDateInString(yumcha.date)
 
-    let creator = {}
     let creatorID = ""
+    let creatorName = ""
+    let creatorUrl = ""
+
     yumcha["yumcha-profiles"].map(yumchaProfile => {
         if (yumchaProfile.creator === true) {
-            creator = yumchaProfile
             creatorID = yumchaProfile.userID
+            yumcha.profiles.map(profile => {
+                if (profile.id === yumchaProfile.userID) {
+                    creatorName = profile.firstName
+                    creatorUrl = profile.avatarUrl
+                }
+            })
         }
     })
 
@@ -89,9 +82,10 @@ const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
             <div className={`${styles.flex} ${styles.mainDiv}`}>
                 <p className={styles.mainText}>{yumcha.description}</p>
                 <div className={styles.profileFlex}>
-                    <div className={styles.mainAvatar}></div>
-                    <span className={styles.name}>{yumcha.username}</span>
-                    {/* Can probs change this in future, not to use username but profile name of creator */}
+                    <div className={styles.mainAvatar}>
+                        <Avatar size={50} url={creatorUrl} />
+                    </div>
+                    <span className={styles.name}>{creatorName}</span>
                 </div>
             </div>
 
@@ -141,7 +135,9 @@ const PersonJoin = ({id, firstName, avatarUrl, bio, gender}: Profile) => {
     return(
         <div className={styles.flex}>
             <div className={styles.profileFlex}>
-                <div className={styles.otherAvatar}></div>
+                <div className={styles.otherAvatar}>
+                    <Avatar size={40} url={avatarUrl} />
+                </div>
                 <span className={styles.otherName}>{firstName}</span>
             </div>
             <span>{bio}</span>

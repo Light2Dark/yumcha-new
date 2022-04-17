@@ -19,7 +19,6 @@ type YumchaCardProps = {
 
 const Avatar = ({url, size}: Props) => {
     const [avatarUrl, setAvatarUrl] = useState("")
-    const [uploading, setUploading] =  useState(false)
 
     useEffect(() => {
         let isMounted = true
@@ -40,7 +39,7 @@ const Avatar = ({url, size}: Props) => {
                 {avatarUrl ? (
                     <Image src={avatarUrl} alt={"generic avatar of a person"} width={size} height={size} objectFit="cover" />
                 ) : (
-                    <Image src={userAvatar} alt={"generic avatar of a person"} width={size} height={size} objectFit="cover" />
+                    <Image src={userIcon} alt={"generic avatar of a person"} width={size} height={size} objectFit="cover" />
                 )}
             </div>
         </>

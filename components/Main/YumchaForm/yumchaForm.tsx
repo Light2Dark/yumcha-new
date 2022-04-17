@@ -7,7 +7,7 @@ import { supabase } from "../../../utils/supabaseClient"
 import Router, { useRouter } from "next/router"
 import GoogleAutocomplete from "./autocomplete"
 
-export interface YumchaProfileProps {
+interface YumchaProfileProps {
     userID: string
     yumchaID: number
     creator: boolean
@@ -169,6 +169,11 @@ const Form = ({setGeometry}: Props) => {
                 <label htmlFor="description" className = {styles.block}>Description:</label>
                 <textarea name="description" id="description" rows={2} placeholder="We can talk about anime and food!" autoComplete="on" style = {{width: "80%"}}></textarea>
             </div>
+{/* 
+            <div>
+                <label htmlFor="sameGender">Same Gender</label>
+                <input type="checkbox" name="sameGender" id="sameGender" />
+            </div> */}
 
             <div className = {styles.submitBtn}>
                 <button id = "submitButton" type="submit">Plan Yumcha</button>
