@@ -16,7 +16,7 @@ import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
 import { YumchaData } from "../components/Main/YumchaPage/yumchaExpanded"
 import Map from "../components/Main/Map/map"
 import { getAllYumchas } from "./api/getYumchas"
-import { checkProfile } from "./auth/checkProfile"
+import checkProfile from "./auth/checkProfile"
 
 export interface YumchaLocations {
     id: number
@@ -74,7 +74,7 @@ const Home = () => {
         return () => {
             isMounted = false
         }
-    }, [])
+    })
     
         
     useEffect(() => {

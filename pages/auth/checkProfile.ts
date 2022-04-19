@@ -7,7 +7,7 @@ type Props = {
     user: User
 }
 
-export async function checkProfile({isMounted, setIsProfileSet, user}: Props) {
+export default async function checkProfile({isMounted, setIsProfileSet, user}: Props) {
     
     try {
         let {data, error, status} = await supabase

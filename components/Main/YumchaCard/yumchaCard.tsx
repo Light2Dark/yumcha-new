@@ -34,19 +34,6 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
     const [deletingDB, setDeletingDB] = useState(false)
     const router = useRouter()
 
-    function ConfirmYumcha() {
-        if (confirm("Join this yumcha?")) {
-            setNumPeopleYumcha(numPeopleYumcha + 1)
-            setUpdatingDB(true)
-        }
-    }
-
-    function EndYumcha() {
-        if  (confirm("End your yumcha?")) {
-            setDeletingDB(true)
-        }   
-    }
-
     function GoToYumchaPage(id: number) {
         // check whether user has profile
         if (isProfileSet) {
@@ -58,87 +45,31 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
             router.push("./auth/profile")
         }
     } 
-
-    useEffect(() => {
-        
-        if(deletingDB) {
-            DeleteDB()
-        }
-    
-        return() => {
-            setDeletingDB(false)
-        }
-
-    }, [deletingDB])
     
 
-    async function DeleteDB() {
-        try {
-            const {error} = await supabase
-                .from("yumcha-profiles")
-                .delete()
-                .match({yumchaID: id})
-
-            if (error) {
-                throw error
-            }
-        }
-        catch(error: any) {
-            console.error(error.message || error.description)
-        }
-
-        try {
-            const {data, error} = await supabase
-                .from("yumcha")
-                .delete()
-                .match({id: id})
+    // async function UpdateDB() {
+    //     try {
+    //         setLoading(true)
+    //         const {data, error} = await supabase
+    //             .from("yumcha")
+    //             .update({numPeopleJoin: numPeopleYumcha})
+    //             .match({id: id})
             
-            if(data) {
-                alert("Yumcha ended! Thank you.")
-            }
+    //         if(data) {
+    //             alert("Joining! Enjoy your yumcha.")
+    //         }
 
-            if (error) {
-                throw error
-            }
-        }
-        catch(error: any) {
-            console.error(error.message || error.description)
-        }
-    }
-
-    useEffect(() => {
-        if(updatingDB) {
-            UpdateDB()
-        }
-
-        return () => {
-            setUpdatingDB(false)
-        }
-    }, [numPeopleYumcha, updatingDB])
-
-    async function UpdateDB() {
-        try {
-            setLoading(true)
-            const {data, error} = await supabase
-                .from("yumcha")
-                .update({numPeopleJoin: numPeopleYumcha})
-                .match({id: id})
-            
-            if(data) {
-                alert("Joining! Enjoy your yumcha.")
-            }
-
-            if (error) {
-                throw error
-            }
-        }
-        catch(error: any) {
-            console.error(error.message || error.description)
-        }
-        finally {
-            setLoading(false)
-        }
-    }
+    //         if (error) {
+    //             throw error
+    //         }
+    //     }
+    //     catch(error: any) {
+    //         console.error(error.message || error.description)
+    //     }
+    //     finally {
+    //         setLoading(false)
+    //     }
+    // }
 
     const timeString = time
     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
