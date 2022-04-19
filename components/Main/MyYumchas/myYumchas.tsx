@@ -4,6 +4,7 @@ import { supabase } from "../../../utils/supabaseClient"
 import styles from "./styles.module.css"
 import { YumchaProps } from "../YumchaCard/yumchaCard"
 import YumchaCard from "../YumchaCard/yumchaCard"
+import { YumchaData } from "../YumchaPage/yumchaExpanded"
 
 export interface Yumchas {
     yumcha: YumchaProps;
@@ -17,7 +18,7 @@ type ProfileProps = {
 
 type Props = {
     userCreatedYumcha: Boolean
-    yumchas: Yumchas[]
+    yumchas: YumchaData[]
     isProfileSet: boolean
 }
 
@@ -39,32 +40,44 @@ const MyYumchas = ({userCreatedYumcha, yumchas, isProfileSet}: Props) => {
 
     return(
         <>
-            {   
-            userCreatedYumcha &&
+            {userCreatedYumcha &&
                 yumchas.map(yumchaData => {
-                    if (user.id == yumchaData.profiles.id) {
-                        return(
-                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={true} id={yumchaData.yumcha.id} isProfileSet = {isProfileSet}  />
-                        )
-                    }
+                    return yumchaData["yumcha-profiles"].map(yumchaProfile => {
+                        const creator = yumchaData.profiles.filter(profile => profile.id === user.id)
+                        let avatarUrl = ""
+                        if (creator.length > 0) {
+                            avatarUrl = creator[0].avatarUrl
+                        }
+                        
+                        if (user.id === yumchaProfile.userID && yumchaProfile.creator === true) {
+                            return (
+                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} tempPlace={yumchaData.tempPlace} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
+                            )
+                        }
+                    })
                 })
             }
 
-            {   
-            !userCreatedYumcha &&
+            {!userCreatedYumcha &&
                 yumchas.map(yumchaData => {
-                    if (user.id != yumchaData.profiles.id) {
-                        return(
-                            <YumchaCard date={yumchaData.yumcha.date} description={yumchaData.yumcha.description} seat={yumchaData.yumcha.seat} yumchaName={yumchaData.yumcha.yumchaName} tempPlace={yumchaData.yumcha.tempPlace} time={yumchaData.yumcha.time} username={yumchaData.yumcha.username} key={yumchaData.yumcha.id} avatarUrl={yumchaData.profiles.avatarUrl} latLong={yumchaData.yumcha.latLong} userCreatedYumcha={false} id={yumchaData.yumcha.id} isProfileSet = {isProfileSet} />
-                        )
-                    }
+                    return yumchaData["yumcha-profiles"].map(yumchaProfile => {
+                        if (yumchaProfile.creator === true && user.id !== yumchaProfile.userID) {
+                            let creator = yumchaData.profiles.filter(profile => profile.id !== user.id)
+                            let avatarUrl = ""
+                            if (creator.length > 0) {
+                                avatarUrl = creator[0].avatarUrl
+                            }
+
+                            return (
+                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} tempPlace={yumchaData.tempPlace} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
+                            )
+                        }
+                    })
                 })
             }
+
         </>
     )
 }
 
 export default MyYumchas
-
-/* yoo, put supabase stuff here, import yumcha cards here
-Our DB should have 3 tables, my yumchas includes yumchas created by us and yumchas we have joined*/

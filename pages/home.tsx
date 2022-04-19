@@ -13,6 +13,7 @@ import MyYumchas from "../components/Main/MyYumchas/myYumchas"
 import { HomeAvatar } from "../components/Main/Avatar/Avatar"
 
 import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
+import { YumchaData } from "../components/Main/YumchaPage/yumchaExpanded"
 import Map from "../components/Main/Map/map"
 import { getAllYumchas } from "./api/getYumchas"
 import { checkProfile } from "./auth/checkProfile"
@@ -28,7 +29,8 @@ const Home = () => {
 
     const [loading, setLoading] = useState(false)
     const [isProfileSet, setIsProfileSet] = useState(false)
-    const [yumchas, setYumchas] = useState<Array<Yumchas>>([])
+    // const [yumchas, setYumchas] = useState<Array<YumchaDataProps>>([])
+    const [yumchas, setYumchas] = useState<Array<YumchaData>>([])
     const [yumchasLatLong, setYumchasLatLong] = useState<YumchaLocations[]>([])
 
     const profileRedirect = () => {
@@ -78,36 +80,36 @@ const Home = () => {
     useEffect(() => {
         let isMounted = true
         getAllYumchas({isMounted, setLoading, setData: setYumchas})
-        
+
         return () => {
             isMounted = false
         }
     }, [])
 
-    useEffect(() => {
-        let yumchasWithLoc: YumchaLocations[] = []
-        let isMounted = true
+    // useEffect(() => {
+    //     let yumchasWithLoc: YumchaLocations[] = []
+    //     let isMounted = true
 
-        if (yumchas.length > 0) {
-            yumchas.map(yumcha => {
-                if (yumcha.yumcha.id && yumcha.yumcha.latLong){
-                    const yumchaLocation: YumchaLocations = {
-                        id: yumcha.yumcha.id,
-                        latLong: yumcha.yumcha.latLong
-                    }
-                    yumchasWithLoc.push(yumchaLocation)
-                }
-            })
+    //     if (yumchas.length > 0) {
+    //         yumchas.map(yumcha => {
+    //             if (yumcha.yumcha.id && yumcha.yumcha.latLong){
+    //                 const yumchaLocation: YumchaLocations = {
+    //                     id: yumcha.yumcha.id,
+    //                     latLong: yumcha.yumcha.latLong
+    //                 }
+    //                 yumchasWithLoc.push(yumchaLocation)
+    //             }
+    //         })
 
-            if (isMounted) {
-                setYumchasLatLong(yumchasWithLoc)
-            }  
-        }
+    //         if (isMounted) {
+    //             setYumchasLatLong(yumchasWithLoc)
+    //         }  
+    //     }
 
-        return () => {
-            isMounted = false
-        }
-    }, [yumchas])
+    //     return () => {
+    //         isMounted = false
+    //     }
+    // }, [yumchas])
 
     async function getYumchaLocations(isMounted: boolean) {
         try {

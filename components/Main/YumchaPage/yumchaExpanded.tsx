@@ -17,7 +17,7 @@ export interface YumchaProfile {
     creator: boolean
 }
 
-interface YumchaData {
+export interface YumchaData {
     id: number
     username: string
     seat: string

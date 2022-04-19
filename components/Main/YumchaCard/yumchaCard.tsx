@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 // import { YumchaCardAvatar } from "../Avatar/Avatar"
+import Avatar from "../Avatar/Avatar"
 
 export interface YumchaProps {
     id: number;
@@ -14,7 +15,7 @@ export interface YumchaProps {
     date: String;
     time: String;
     tempPlace?: String;
-    latLong: string[];
+    latLong: string; // could be array
     seat: String;
     yumchaName: String;
     description: String;
@@ -25,7 +26,7 @@ export interface YumchaProps {
     isProfileSet?: boolean
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha, isProfileSet} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha, isProfileSet, avatarUrl} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
@@ -170,12 +171,8 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                     </div>
                     <div className={styles.expanded}>
                         
-                        {/* {avatarUrl ? (
-                            <YumchaCardAvatar size={50} url={avatarUrl} />
-                        ) : (
-                            <Image src={userIcon} alt="Icon of a person" className={styles.f2fimg} height={"50px"} width={"50px"} />
-                        )} */}
-                        <Image src={userIcon} alt="Icon of a person" className={styles.f2fimg} height={"50px"} width={"50px"} />
+                        <Avatar size={50} url={avatarUrl || ""} />
+                        
 
                         <div className={styles.midText}>
                             <span>{description}</span>
@@ -203,7 +200,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
                         </div>
                         <div>
-                            <span>{numPeopleYumcha} people joining!</span>
+                            <span>{numPeopleJoin} people joining!</span>
                         </div>
                     </div>
                 </div>
