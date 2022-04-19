@@ -15,8 +15,8 @@ import { HomeAvatar } from "../components/Main/Avatar/Avatar"
 import { Yumchas } from "../components/Main/MyYumchas/myYumchas"
 import { YumchaData } from "../components/Main/YumchaPage/yumchaExpanded"
 import Map from "../components/Main/Map/map"
-import { getAllYumchas } from "./api/getYumchas"
-import checkProfile from "./auth/checkProfile"
+import { getAllYumchas } from "../utils/getYumchas"
+import checkProfile from "../utils/checkProfile"
 
 export interface YumchaLocations {
     id: number

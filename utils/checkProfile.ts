@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js";
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "./supabaseClient";
 
 type Props = {
     isMounted: boolean
