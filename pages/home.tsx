@@ -74,7 +74,7 @@ const Home = () => {
         return () => {
             isMounted = false
         }
-    })
+    },  [user])
     
         
     useEffect(() => {
