@@ -118,7 +118,7 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
 
 
 type Props = {
-    markerLocations: YumchaLocations[]
+    markerLocations?: YumchaLocations[]
 }
 
 const App = ({markerLocations}: Props) => {
@@ -177,21 +177,25 @@ const App = ({markerLocations}: Props) => {
 
     return(
         <Wrapper apiKey={process.env.NEXT_PUBLIC_MAPS_API || ""}>
-            {/* <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-            {markerLocations.map((location) => {
-
-                if (location.latLong) {
-                    let position: google.maps.LatLngLiteral = {
-                        lat: Number(location.latLong[0]),
-                        lng: Number(location.latLong[1])
-                    }
-                    return(
-                        <Marker key={location.id} position={position}></Marker>
-                    )
-                }
-            })}
+            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
             
-            </Map> */}
+            {markerLocations ? 
+                markerLocations.map((location) => {
+
+                    if (location.latLong) {
+                        let position: google.maps.LatLngLiteral = {
+                            lat: Number(location.latLong[0]),
+                            lng: Number(location.latLong[1])
+                        }
+                        return(
+                            <Marker key={location.id} position={position}></Marker>
+                        )
+                    }
+                })
+            : null
+            }
+            
+            </Map>
         </Wrapper>
 
     )
