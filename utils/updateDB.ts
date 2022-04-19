@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabaseClient"
+import { supabase } from "./supabaseClient"
 import { useEffect } from "react"
 
 export function JoinYumcha(yumchaID: number, userID: String, setLoading: (loading: boolean) => void) {

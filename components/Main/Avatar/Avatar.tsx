@@ -4,7 +4,7 @@ import { supabase } from "../../../utils/supabaseClient"
 import Image from "next/image"
 import userAvatar from "../../../public/images/user.png"
 import userIcon from "../../../public/images/usercircle.svg"
-import {downloadImage} from "../../../pages/api/setAvatar"
+import {downloadImage} from "../../../utils/setAvatar"
 
 interface Props {
     url: string

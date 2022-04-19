@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "./supabaseClient";
 import imageCompression from "browser-image-compression";
 
 interface Props {

@@ -2,7 +2,7 @@ import styles from "./styles.module.css"
 import Image from "next/image"
 import { getDateInString, getTimeInString } from "../../../utils/usefulFuncs"
 import Avatar from "../Avatar/Avatar"
-import {EndYumcha, JoinYumcha} from "../../../pages/api/updateDB"
+import {EndYumcha, JoinYumcha} from "../../../utils/updateDB"
 import { supabase } from "../../../utils/supabaseClient"
 import { useState } from "react"
 

@@ -8,7 +8,7 @@ import buttonStyles from "../../components/Shared/button.module.css"
 // import Avatar from "../../components/Main/Avatar/Avatar";
 import Navbar from "../../components/Header/Navbar/Navbar";
 
-import { uploadAvatar } from "../api/setAvatar";
+import { uploadAvatar } from "../../utils/setAvatar";
 import Avatar from "../../components/Main/Avatar/Avatar";
 
 export enum GenderEnum {
