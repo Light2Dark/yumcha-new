@@ -152,9 +152,6 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
     const dateString = new Date(Date.UTC(year, month, day))
     const options = {day: "2-digit", month: "short"} as const
     const dateStr = dateString.toLocaleDateString("en-US", options)
-      
-    // let num = "6" + phoneNum
-    // const whatsapp = `https://wa.me/${num}`
 
     return(
         <>
@@ -179,14 +176,6 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <span className={styles.place}>{tempPlace}, {seat}</span>
                         </div>
 
-                        {/* {userCreatedYumcha 
-                            ? <button className={styles.button} onClick={EndYumcha}>End</button>
-                            : <button className={styles.button} onClick={ConfirmYumcha}>Join</button>
-                        } */}
-
-                        {/* <Link href={"/yumchas/" + id} passHref>
-                            <button className={styles.button}>View</button>
-                        </Link> */}
                         <button className={styles.button} onClick={() => {GoToYumchaPage(id)}}>View</button>
                         
                     </div>
@@ -200,7 +189,8 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
                             <Image src={userIcon} alt="Small icon of a person" height={"30px"} width={"30px"} />
                         </div>
                         <div>
-                            <span>{numPeopleJoin} people joining!</span>
+                            {/* <span>{numPeopleJoin} people joining!</span> */}
+                            <span> people joining!</span>
                         </div>
                     </div>
                 </div>

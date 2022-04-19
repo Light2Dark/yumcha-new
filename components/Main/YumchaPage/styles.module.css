@@ -94,3 +94,8 @@
     align-items: center;
     gap: 5px;
 }
+
+.bio {
+    display: flex;
+    align-items: center;
+}

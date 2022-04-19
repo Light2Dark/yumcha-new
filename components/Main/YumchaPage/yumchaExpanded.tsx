@@ -2,6 +2,9 @@ import styles from "./styles.module.css"
 import Image from "next/image"
 import { getDateInString, getTimeInString } from "../../../utils/usefulFuncs"
 import Avatar from "../Avatar/Avatar"
+import {EndYumcha, JoinYumcha} from "../../../pages/api/updateDB"
+import { supabase } from "../../../utils/supabaseClient"
+import { useState } from "react"
 
 interface Profile {
     id: string
@@ -38,23 +41,10 @@ export interface YumchaDataProps {
     yumchaData: YumchaData[]
 }
 
-// {id: 1, username: 'Shahmir', seat: 'Near library', date: '2022-02-08', time: '20:37:45', …}
-// date: "2022-02-08"
-// description: "Enjoy meeting new people!"
-// id: 1
-// latLong: null
-// numPeopleJoin: 161
-// profiles: [{…}]
-// sameGender: false
-// seat: "Near library"
-// tempPlace: "Uni Foyer"
-// time: "20:37:45"
-// username: "Shahmir"
-// yumcha-profiles: [{…}]
-// yumchaName: "Sample Yumcha Title"
-
 const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
     const yumcha: YumchaData = yumchaData[0]
+    const user = supabase.auth.user()
+    const [loading, setLoading] = useState(false)
 
     const timeString = getTimeInString(yumcha.time)
     const dateString = getDateInString(yumcha.date)
@@ -125,7 +115,14 @@ const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
             </div>
 
             <div className={styles.center}>
-                <button className={styles.button}>Join / End</button>
+                {
+                    loading ? <button className={styles.button}>Loading</button> :
+                    user ?
+                        user.id === creatorID ? 
+                            <button className={styles.button} onClick = {() => {EndYumcha(yumcha.id, setLoading)}}>End Yumcha</button> :
+                            <button className={styles.button} onClick = {() => {JoinYumcha(yumcha.id, user.id, setLoading)}}>Join Yumcha</button>
+                    :   <button className={styles.button}>Error!</button>
+                }
             </div>
         </div>
     )
@@ -140,7 +137,9 @@ const PersonJoin = ({id, firstName, avatarUrl, bio, gender}: Profile) => {
                 </div>
                 <span className={styles.otherName}>{firstName}</span>
             </div>
-            <span>{bio}</span>
+            <div className={styles.bio}>
+                <span>{bio}</span>
+            </div>
         </div>
     )
 }
