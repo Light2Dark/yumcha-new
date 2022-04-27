@@ -69,12 +69,12 @@ const SignIn = () => {
                 <form onSubmit={onSubmit}>
                     <div className={styles.flex}>
                         <label htmlFor="email">Email</label>
-                        <input type="email" {...register("email", {required: true})} id="email"/>
+                        <input type="email" {...register("email", {required: true})} autoComplete="on" id="email"/>
                     </div>
                     
                     <div className={styles.flex}>
                         <label htmlFor="password">Password</label>
-                        <input type="password" {...register("password", {required: true})} id="password"/>
+                        <input type="password" {...register("password", {required: true})} autoComplete="on" id="password"/>
                     </div>
 
                     <button className={styles.signUp} type="submit">

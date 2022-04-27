@@ -78,7 +78,7 @@ const SignUp = () => {
                     
                 </form>
             
-                <p>All data is stored securely to our best knowledge. In any case, do not share your password.</p>
+                <p>All data is stored securely in Supabase (a cloud database). In any case, do not share your password and remember it :D</p>
             </div>
         </>
     )
