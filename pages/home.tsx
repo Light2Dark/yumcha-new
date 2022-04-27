@@ -58,6 +58,9 @@ const Home = () => {
     const planYumcha = () => {
         if (user === null) {
             NotSignedInAlert()
+        } else if (!isProfileSet) {
+            alert("You have not set up your profile!")
+            router.push("./auth/profile")
         } else {
             router.push("./planYumcha")   
         }
