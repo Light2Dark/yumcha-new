@@ -5,9 +5,10 @@ import Autocomplete from "react-google-autocomplete"
 interface Props {
     setLatLongMap: (geometry: string[]) => void
     setLatLongDB: (geometry: string[]) => void
+    setLocationName: (location: any) => void 
 }
 
-const GoogleAutocomplete = ({setLatLongMap, setLatLongDB}: Props) => {
+const GoogleAutocomplete = ({setLatLongMap, setLatLongDB, setLocationName}: Props) => {
     const options = {
         componentRestrictions: { country: "my" },
         fields: ["address_components","name", "geometry"],
@@ -29,6 +30,12 @@ const GoogleAutocomplete = ({setLatLongMap, setLatLongDB}: Props) => {
                         let geometryPlace = [lat, long]
                         setLatLongMap(geometryPlace)
                         setLatLongDB(geometryPlace)
+                        if (place && place.address_components) {
+                            let town = place.address_components[1] ? place.address_components[1].long_name : place.address_components[2].long_name
+                            let loc = place.name + ", " + town
+                            setLocationName(loc)
+                        }
+                        
                     }
                 }}
                 options={options}

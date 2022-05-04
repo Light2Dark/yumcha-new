@@ -51,7 +51,7 @@ const MyYumchas = ({userCreatedYumcha, yumchas, isProfileSet}: Props) => {
                         
                         if (user.id === yumchaProfile.userID && yumchaProfile.creator === true) {
                             return (
-                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} tempPlace={yumchaData.tempPlace} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
+                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} locationString={yumchaData.locationString} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
                             )
                         }
                     })
@@ -69,7 +69,7 @@ const MyYumchas = ({userCreatedYumcha, yumchas, isProfileSet}: Props) => {
                             }
 
                             return (
-                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} tempPlace={yumchaData.tempPlace} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
+                                <YumchaCard id={yumchaData.id} description = {yumchaData.description} date={yumchaData.date} latLong={yumchaData.latLong} seat={yumchaData.seat} time={yumchaData.time} username={yumchaData.username} yumchaName={yumchaData.yumchaName} userCreatedYumcha={true} locationString={yumchaData.locationString} key={yumchaData.id} isProfileSet={isProfileSet} avatarUrl={avatarUrl} numPeopleJoin={yumchaData.numPeopleJoin} />
                             )
                         }
                     })

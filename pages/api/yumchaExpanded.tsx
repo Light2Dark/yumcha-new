@@ -49,7 +49,7 @@ export async function getYumchaData(yumchaID: string) {
                 yumchaName,
                 description,
                 sameGender,
-                tempPlace,
+                locationString,
                 numPeopleJoin,
                 latLong,
 

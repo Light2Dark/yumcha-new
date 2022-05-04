@@ -22,9 +22,9 @@ export async function getAllYumchas({isMounted, setLoading, setData}: Props) {
                 yumchaName,
                 description,
                 sameGender,
-                tempPlace,
                 numPeopleJoin,
                 latLong,
+                locationString,
 
                 yumcha-profiles (
                     yumchaID,

@@ -14,7 +14,7 @@ export interface YumchaProps {
     username: String;
     date: String;
     time: String;
-    tempPlace?: String;
+    locationString: String;
     latLong: string; // could be array
     seat: String;
     yumchaName: String;
@@ -26,7 +26,7 @@ export interface YumchaProps {
     isProfileSet?: boolean
 }
 
-const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha, isProfileSet, avatarUrl} : YumchaProps) => {
+const Card = ({username, yumchaName, time, description, locationString, seat, numPeopleJoin, date, sameGender, id, userCreatedYumcha, isProfileSet, avatarUrl} : YumchaProps) => {
 
     const [numPeopleYumcha, setNumPeopleYumcha] = useState(numPeopleJoin!)
     const [loading, setLoading] = useState(false)
@@ -83,6 +83,11 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
     const dateString = new Date(Date.UTC(year, month, day))
     const options = {day: "2-digit", month: "short"} as const
     const dateStr = dateString.toLocaleDateString("en-US", options)
+    if (locationString) {
+        const loc = locationString.split(",")
+        locationString = loc[0]
+    }
+    
 
     return(
         <>
@@ -104,7 +109,7 @@ const Card = ({username, yumchaName, time, description, tempPlace, seat, numPeop
 
                         <div className={styles.midText}>
                             <span>{description}</span>
-                            <span className={styles.place}>{tempPlace}, {seat}</span>
+                            <span className={styles.place}>{locationString}, {seat}</span>
                         </div>
 
                         <button className={styles.button} onClick={() => {GoToYumchaPage(id)}}>View</button>

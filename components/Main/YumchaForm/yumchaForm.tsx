@@ -24,6 +24,7 @@ const Form = ({setGeometry}: Props) => {
     const [yumchaTableUpdated, setYumchaTableUpdated] = useState(false)
     const [yumchaID, setYumchaID] = useState(0)
     const [selectedPlaceLatLong, setSelectedPlaceLatLong] = useState<string[]>([])
+    const [locationName, setLocationName] = useState("")
     const router = useRouter()
 
     useEffect(() => {
@@ -92,6 +93,7 @@ const Form = ({setGeometry}: Props) => {
             description: event.target.description.value,
             time: event.target.time.value,
             date: event.target.date.value,
+            locationString: locationName,
             latLong: selectedPlaceLatLong,
             seat: event.target.seatLocation.value,
             yumchaName: event.target.yumchaName.value,
@@ -155,7 +157,7 @@ const Form = ({setGeometry}: Props) => {
 
                 <div id = {styles.locationSelector}>
                     <label htmlFor="place" className = {styles.block}>Place:</label>
-                    <GoogleAutocomplete setLatLongMap={setGeometry} setLatLongDB={setSelectedPlaceLatLong} />
+                    <GoogleAutocomplete setLatLongMap={setGeometry} setLatLongDB={setSelectedPlaceLatLong} setLocationName={setLocationName} />
                 </div>
 
                 <div>

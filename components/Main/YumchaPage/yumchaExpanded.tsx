@@ -29,7 +29,7 @@ export interface YumchaData {
     yumchaName: string
     description: string
     sameGender: boolean
-    tempPlace?: string
+    locationString: string
     numPeopleJoin?: number
     latLong: string
 
@@ -92,7 +92,7 @@ const YumchaExpanded = ({yumchaData}: YumchaDataProps) => {
                 
                 <div>
                     <Image src="/logos/marker.svg" alt = "Logo of a marker" height={25} width={25} />
-                    <span>{yumcha.tempPlace}</span>
+                    <span>{yumcha.locationString}</span>
                 </div>
             </div>
 
