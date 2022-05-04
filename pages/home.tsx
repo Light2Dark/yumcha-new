@@ -20,7 +20,7 @@ import checkProfile from "../utils/checkProfile"
 
 export interface YumchaLocations {
     id: number
-    latLong: string[]
+    latLong: string
 }
 
 const Home = () => {
@@ -89,30 +89,30 @@ const Home = () => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     let yumchasWithLoc: YumchaLocations[] = []
-    //     let isMounted = true
+    useEffect(() => {
+        let yumchasWithLoc: YumchaLocations[] = []
+        let isMounted = true
 
-    //     if (yumchas.length > 0) {
-    //         yumchas.map(yumcha => {
-    //             if (yumcha.yumcha.id && yumcha.yumcha.latLong){
-    //                 const yumchaLocation: YumchaLocations = {
-    //                     id: yumcha.yumcha.id,
-    //                     latLong: yumcha.yumcha.latLong
-    //                 }
-    //                 yumchasWithLoc.push(yumchaLocation)
-    //             }
-    //         })
+        if (yumchas.length > 0) {
+            yumchas.map(yumcha => {
+                if (yumcha.id && yumcha.latLong){
+                    const yumchaLocation: YumchaLocations = {
+                        id: yumcha.id,
+                        latLong: yumcha.latLong
+                    }
+                    yumchasWithLoc.push(yumchaLocation)
+                }
+            })
 
-    //         if (isMounted) {
-    //             setYumchasLatLong(yumchasWithLoc)
-    //         }  
-    //     }
+            if (isMounted) {
+                setYumchasLatLong(yumchasWithLoc)
+            }  
+        }
 
-    //     return () => {
-    //         isMounted = false
-    //     }
-    // }, [yumchas])
+        return () => {
+            isMounted = false
+        }
+    }, [yumchas])
 
     async function getYumchaLocations(isMounted: boolean) {
         try {

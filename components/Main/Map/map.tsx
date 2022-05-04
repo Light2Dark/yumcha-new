@@ -115,8 +115,6 @@ const Map: React.FC<MapProps> = ({center, zoom, onClick, onIdle, children, style
     )
 }
 
-
-
 type Props = {
     markerLocations?: YumchaLocations[]
 }
@@ -181,14 +179,13 @@ const App = ({markerLocations}: Props) => {
             
             {markerLocations ? 
                 markerLocations.map((location) => {
-
                     if (location.latLong) {
                         let position: google.maps.LatLngLiteral = {
                             lat: Number(location.latLong[0]),
                             lng: Number(location.latLong[1])
                         }
                         return(
-                            <Marker key={location.id} position={position}></Marker>
+                            <Marker key={location.id} position={position} icon={"/logos/nowYumcha.svg"} ></Marker>
                         )
                     }
                 })

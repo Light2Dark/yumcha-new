@@ -18,7 +18,7 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
 
     useEffect(() => {
         if (marker) {
-        marker.setOptions(options);
+            marker.setOptions(options);
         }
     }, [marker, options]);
 
