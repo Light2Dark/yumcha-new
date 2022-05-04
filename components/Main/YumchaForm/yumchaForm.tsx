@@ -6,6 +6,8 @@ import { useState, useEffect } from "react"
 import { supabase } from "../../../utils/supabaseClient"
 import Router, { useRouter } from "next/router"
 import GoogleAutocomplete from "./autocomplete"
+import Script from "next/script"
+import Head from "next/head"
 
 interface YumchaProfileProps {
     userID: string
@@ -124,61 +126,64 @@ const Form = ({setGeometry}: Props) => {
     }
 
     return(
-        <form id = {styles.yumchaForm} className = {styles.userForm} onSubmit={BookYumcha}>
-            <div className={styles.datetime}>
-                <div>
-                    <label htmlFor="name" className={styles.block}>Name:</label>
-                    <input type="text" name="name" id="name" required placeholder="Jenna" className = {styles.largerInput} />
-                </div>
-            </div>
-
-            <div className = {styles.datetime}>
-                <div>
-                    <label htmlFor="date" className = {styles.block}>Date:</label>
-                    <input type="date" name="date" id="date" required className = {styles.largerInput} />
+        <>
+            <form id = {styles.yumchaForm} className = {styles.userForm} onSubmit={BookYumcha}>
+                <div className={styles.datetime}>
+                    <div>
+                        <label htmlFor="name" className={styles.block}>Name:</label>
+                        <input type="text" name="name" id="name" required placeholder="Jenna" className = {styles.largerInput} />
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="time" className = {styles.block}>Time:</label>
-                    <input type="time" name="time" id="time" required className = {styles.smallerInput} />
+                <div className = {styles.datetime}>
+                    <div>
+                        <label htmlFor="date" className = {styles.block}>Date:</label>
+                        <input type="date" name="date" id="date" required className = {styles.largerInput} />
+                    </div>
+
+                    <div>
+                        <label htmlFor="time" className = {styles.block}>Time:</label>
+                        <input type="time" name="time" id="time" required className = {styles.smallerInput} />
+                    </div>
                 </div>
-            </div>
 
-            {/* <div id = {styles.locationSelector}>
-                <label htmlFor="place" className = {styles.block}>Place:</label>
-                <input type="text" name="place" id="place" required className = {styles.location} placeholder="KFC, Jalan Sambanthan" />
-                <Image src={locationPic} alt="Choose location on map"></Image>
-            </div> */}
+                {/* <div id = {styles.locationSelector}>
+                    <label htmlFor="place" className = {styles.block}>Place:</label>
+                    <input type="text" name="place" id="place" required className = {styles.location} placeholder="KFC, Jalan Sambanthan" />
+                    <Image src={locationPic} alt="Choose location on map"></Image>
+                </div> */}
 
-            <div id = {styles.locationSelector}>
-                <label htmlFor="place" className = {styles.block}>Place:</label>
-                <GoogleAutocomplete setLatLongMap={setGeometry} setLatLongDB={setSelectedPlaceLatLong} />
-            </div>
+                <div id = {styles.locationSelector}>
+                    <label htmlFor="place" className = {styles.block}>Place:</label>
+                    <GoogleAutocomplete setLatLongMap={setGeometry} setLatLongDB={setSelectedPlaceLatLong} />
+                </div>
 
-            <div>
-                <label htmlFor="seatLocation" className = {styles.block}>Seat:</label>
-                <input type="text" className = {styles.medium} name = "seatLocation" required id = "seatLocation" placeholder="Upstairs, 2nd table" autoComplete="off" autoCapitalize="on" />
-            </div>
+                <div>
+                    <label htmlFor="seatLocation" className = {styles.block}>Seat:</label>
+                    <input type="text" className = {styles.medium} name = "seatLocation" required id = "seatLocation" placeholder="Upstairs, 2nd table" autoComplete="off" autoCapitalize="on" />
+                </div>
 
-            <div>
-                <label htmlFor="yumchaName" className = {styles.block}>Yumcha Name:</label>
-                <input type="text" name="yumchaName" id="yumchaName" required placeholder="Lunch + talk" className = {styles.medium} max="15" />
-            </div>
+                <div>
+                    <label htmlFor="yumchaName" className = {styles.block}>Yumcha Name:</label>
+                    <input type="text" name="yumchaName" id="yumchaName" required placeholder="Lunch + talk" className = {styles.medium} max="15" />
+                </div>
 
-            <div>
-                <label htmlFor="description" className = {styles.block}>Description:</label>
-                <textarea name="description" id="description" rows={2} placeholder="We can talk about anime and food!" autoComplete="on" style = {{width: "80%"}}></textarea>
-            </div>
-{/* 
-            <div>
-                <label htmlFor="sameGender">Same Gender</label>
-                <input type="checkbox" name="sameGender" id="sameGender" />
-            </div> */}
+                <div>
+                    <label htmlFor="description" className = {styles.block}>Description:</label>
+                    <textarea name="description" id="description" rows={2} placeholder="We can talk about anime and food!" autoComplete="on" style = {{width: "80%"}}></textarea>
+                </div>
+                {/* 
+                <div>
+                    <label htmlFor="sameGender">Same Gender</label>
+                    <input type="checkbox" name="sameGender" id="sameGender" />
+                </div> */}
 
-            <div className = {styles.submitBtn}>
-                <button id = "submitButton" type="submit">Plan Yumcha</button>
-            </div>
-        </form>
+                <div className = {styles.submitBtn}>
+                    <button id = "submitButton" type="submit">Plan Yumcha</button>
+                </div>
+            </form>
+        </>
+        
     )
 }
 

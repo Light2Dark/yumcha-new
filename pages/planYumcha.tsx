@@ -6,8 +6,14 @@ import YumchaForm from "../components/Main/YumchaForm/yumchaForm"
 import Map from "../components/Main/Map/map"
 import { useState, useEffect } from "react"
 import { Wrapper } from "@googlemaps/react-wrapper";
+import Script from "next/script"
 
 const API_KEY: string = process.env.NEXT_PUBLIC_MAPS_API || ""
+
+export const GoogleApiWrapper = ({
+    apiKey: "--GOOGLE-MAPS-KEY--",
+    libraries: ["places"]
+})
 
 const Page: NextPage = () => {
     const [selectedPlaceLatLong, setSelectedPlaceLatLong] = useState<string[]>([])
@@ -34,24 +40,17 @@ const Page: NextPage = () => {
 
     return(
         <>
-            <Head>
-                <title>Yumcha</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
             <header>
                 <Navbar loggedIn={true} />
             </header>
 
             <main>
-                <Wrapper apiKey={API_KEY}>
                     <h1 className={mainStyles.h1}>F2F Yumchas</h1>
-                    <Map />
+                    {/* <Map /> */}
 
                     <div>
                         <YumchaForm setGeometry={setGeometry} />
                     </div>
-                </Wrapper>
             </main>
         </>
     )

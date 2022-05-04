@@ -24,14 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           }}
       />
 
-      {/* <script
-        type="text/javascript"
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`}
-      ></script> */}
+      <Script async src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`} type="text/javascript" />
 
-      {/* <Script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAPS_API}&libraries=places`} type="text/javascript" /> */}
-
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </>
   )
 }
