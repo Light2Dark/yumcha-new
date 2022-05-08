@@ -185,7 +185,7 @@ const App = ({markerLocations}: Props) => {
                             lng: Number(location.latLong[1])
                         }
                         return(
-                            <Marker key={location.id} position={position} icon={"/logos/nowYumcha.svg"} ></Marker>
+                            <Marker key={location.id} position={position} icon={"/logos/nowyumcha2.svg"} ></Marker>
                         )
                     }
                 })
