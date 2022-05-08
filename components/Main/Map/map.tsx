@@ -121,10 +121,11 @@ type Props = {
 
 const App = ({markerLocations}: Props) => {
     const [zoom, setZoom] = useState(18)
-    const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-        lat: 3.0670144765507605,
-        lng: 101.60389023893472
-    })
+    // const [center, setCenter] = useState<google.maps.LatLngLiteral>({
+    //     lat: 3.0670144765507605,
+    //     lng: 101.60389023893472
+    // })
+    const [center, setCenter] = useState<google.maps.LatLngLiteral>()
     const [click, setClick] = useState<google.maps.LatLng>()
 
     useEffect(() => {
@@ -180,7 +181,7 @@ const App = ({markerLocations}: Props) => {
 
     return(
         <Wrapper apiKey={process.env.NEXT_PUBLIC_MAPS_API || ""}>
-            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle} key={center.lat}>
+            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
             {markerLocations ? 
                 markerLocations.map((location) => {
                     if (location.latLong) {
