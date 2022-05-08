@@ -130,6 +130,11 @@ const App = ({markerLocations}: Props) => {
     useEffect(() => {
         getPosition()
     })
+
+    const sunwayCenter = {
+        lat: 3.0670144765507605,
+        lng: 101.60389023893472
+    }
     
     // if browser supports navigator.geolocaiton, generate lat/long
     const getPosition = () => {
@@ -175,8 +180,7 @@ const App = ({markerLocations}: Props) => {
 
     return(
         <Wrapper apiKey={process.env.NEXT_PUBLIC_MAPS_API || ""}>
-            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle}>
-            
+            <Map center={center} zoom={zoom} style={styles} onIdle={onIdle} key={center.lat}>
             {markerLocations ? 
                 markerLocations.map((location) => {
                     if (location.latLong) {

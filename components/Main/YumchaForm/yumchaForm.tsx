@@ -108,7 +108,7 @@ const Form = ({setGeometry}: Props) => {
                 .insert(Yumcha)
             
             if(data) {
-                alert("Success! Enjoy your yumcha")
+                alert("Success! Enjoy your yumcha, you can go back to the home page.")
                 setYumchaID(data[0].id)
             }
 
@@ -123,7 +123,7 @@ const Form = ({setGeometry}: Props) => {
         finally {
             setLoading(false)
             setYumchaTableUpdated(true)
-            event.target.reset()
+            event.target.reset() 
         }
     }
 
