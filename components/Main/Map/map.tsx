@@ -121,11 +121,11 @@ type Props = {
 
 const App = ({markerLocations}: Props) => {
     const [zoom, setZoom] = useState(18)
-    // const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-    //     lat: 3.0670144765507605,
-    //     lng: 101.60389023893472
-    // })
-    const [center, setCenter] = useState<google.maps.LatLngLiteral>()
+    const [center, setCenter] = useState<google.maps.LatLngLiteral>({
+        lat: 3.0670144765507605,
+        lng: 101.60389023893472
+    })
+    // const [center, setCenter] = useState<google.maps.LatLngLiteral>()
     const [click, setClick] = useState<google.maps.LatLng>()
 
     useEffect(() => {
